@@ -1,0 +1,7 @@
+extends: ["spectral:oas"]
+rules:
+  operation-operationId-valid-in-url: true
+  info-contact: error
+  no-$ref-siblings: error
+  typed-enum: error
+

@@ -1,0 +1,30 @@
+type: object
+description: Standardisiertes Problem Detail Objekt gemäß RFC 9457.
+required:
+  - type
+  - title
+  - status
+properties:
+  type:
+    type: string
+    format: uri
+    description: URI-Referenz zur Spezifikation des Fehlertyps.
+    example: "urn:problem-type:bad-request"
+  title:
+    type: string
+    description: Kurze, menschenlesbare Zusammenfassung des Fehlers.
+    example: "Ungültige Anfrage"
+  status:
+    type: integer
+    description: HTTP-Statuscode der Fehlerantwort.
+    example: 400
+  detail:
+    type: string
+    description: Detaillierte menschenlesbare Erklärung des Problems.
+    example: "Der Parameter 'date' entspricht nicht dem erwarteten Format YYYY-MM-DD."
+  instance:
+    type: string
+    format: uri-reference
+    description: URI-Referenz zum konkreten Request, bei dem der Fehler auftrat.
+    example: "/api/gamedays/2026-99-99/games"
+

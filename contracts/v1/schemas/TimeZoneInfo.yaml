@@ -1,0 +1,19 @@
+type: object
+description: Zeitzoneninformationen für den Spielort.
+required:
+  - timeZoneId
+  - formattedOffset
+properties:
+  timeZoneId:
+    type: string
+    description: IANA-Zeitzonen-Identifier.
+    example: "America/New_York"
+  rawOffset:
+    type: integer
+    description: Zeitabweichung zu UTC in Sekunden (ohne Berücksichtigung von Sommerzeit).
+    example: -18000
+  formattedOffset:
+    type: string
+    description: Formatierter UTC-Offset zum Zeitpunkt des Spiels.
+    example: "-04:00"
+

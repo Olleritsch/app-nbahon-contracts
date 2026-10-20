@@ -1,0 +1,38 @@
+get:
+  summary: Spiele für einen Spieltag abrufen
+  description: Liefert eine Liste aller NBA-Spiele für das angegebene Datum (ISO-8601).
+  operationId: getGamesForDate
+  tags:
+    - Gamedays
+  parameters:
+    - name: date
+      in: path
+      required: true
+      description: Kalendertag des Spieltags im Format YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+        example: "2026-04-12"
+  responses:
+    '200':
+      description: Erfolgreiche Rückgabe der Spiele für den angegebenen Spieltag.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/Game.yaml'
+    '400':
+      description: Ungültige Anfrage oder fehlerhaftes Datumsformat.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../schemas/ProblemDetail.yaml'
+    '500':
+      description: Unerwarteter interner Serverfehler.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../schemas/ProblemDetail.yaml'
+
+

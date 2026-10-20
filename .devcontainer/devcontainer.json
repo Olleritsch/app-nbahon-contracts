@@ -1,0 +1,23 @@
+{
+  "name": "nbahon-contracts",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Redocly.openapi-vs-code",
+        "stoplight.spectral",
+        "redhat.vscode-yaml",
+        "davidanson.vscode-markdownlint"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "yaml.format.enable": true,
+        "yaml.validate": true
+      }
+    }
+  },
+  "postCreateCommand": "npm install",
+  "remoteUser": "node"
+}
+

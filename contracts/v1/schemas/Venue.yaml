@@ -1,0 +1,32 @@
+type: object
+description: Austragungsort (Arena) eines NBA-Spiels.
+required:
+  - id
+  - name
+  - city
+properties:
+  id:
+    type: string
+    description: Eindeutige Kennung der Spielstätte.
+    example: "venue-td-garden"
+  name:
+    type: string
+    description: Offizieller Name der Arena.
+    example: "TD Garden"
+  city:
+    type: string
+    description: Stadt der Spielstätte.
+    example: "Boston"
+  state:
+    type: string
+    description: Bundesstaat oder Provinz (falls zutreffend).
+    example: "MA"
+  country:
+    type: string
+    description: Land der Spielstätte.
+    example: "USA"
+  capacity:
+    type: integer
+    description: Zuschauerkapazität der Arena.
+    example: 19156
+

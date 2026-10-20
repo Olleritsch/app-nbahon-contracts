@@ -1,0 +1,39 @@
+type: object
+description: Repräsentiert ein vollständiges NBA-Spiel mit Teams, Spielstätte, Status und ggf. Punktestand.
+required:
+  - id
+  - gameDate
+  - status
+  - homeTeam
+  - awayTeam
+  - venue
+properties:
+  id:
+    type: string
+    description: Global eindeutige ID des Spiels.
+    example: "1438667"
+  gameDate:
+    type: string
+    format: date
+    description: Kalendertag des Spiels im ISO-8601 Format (YYYY-MM-DD).
+    example: "2026-04-12"
+  startTime:
+    type:
+      - string
+      - "null"
+    format: date-time
+    description: Geplanter Anwurf (Tip-off) mit Zeitzonen-Offset. Null falls noch unbestimmt (TBD).
+    example: "2026-04-12T19:30:00-04:00"
+  timeZone:
+    $ref: './TimeZoneInfo.yaml'
+  status:
+    $ref: './GameStatus.yaml'
+  homeTeam:
+    $ref: './Team.yaml'
+  awayTeam:
+    $ref: './Team.yaml'
+  venue:
+    $ref: './Venue.yaml'
+  score:
+    $ref: './Score.yaml'
+

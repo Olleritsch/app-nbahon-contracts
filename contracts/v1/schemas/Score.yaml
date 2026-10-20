@@ -1,0 +1,41 @@
+type: object
+description: Punktestand eines NBA-Spiels inklusive Spielabschnitte.
+required:
+  - homeScore
+  - awayScore
+properties:
+  homeScore:
+    type: integer
+    description: Gesamtpunktzahl des Heimteams.
+    example: 112
+  awayScore:
+    type: integer
+    description: Gesamtpunktzahl des Auswärtsteams.
+    example: 104
+  isOvertime:
+    type: boolean
+    description: Gibt an, ob das Spiel in die Verlängerung ging.
+    example: false
+  periods:
+    type: array
+    description: Punktestände aufgeschlüsselt nach Spielabschnitt (Quarter oder Overtime).
+    items:
+      type: object
+      required:
+        - period
+        - homeScore
+        - awayScore
+      properties:
+        period:
+          type: integer
+          description: Nummer des Abschnitts (1-4 regulär, 5+ Overtime).
+          example: 1
+        homeScore:
+          type: integer
+          description: Punkte des Heimteams in diesem Abschnitt.
+          example: 28
+        awayScore:
+          type: integer
+          description: Punkte des Auswärtsteams in diesem Abschnitt.
+          example: 24
+

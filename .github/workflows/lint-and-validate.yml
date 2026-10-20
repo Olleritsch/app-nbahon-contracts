@@ -1,0 +1,49 @@
+name: Validate OpenAPI Contracts
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [develop]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint with Spectral
+        run: npm run lint
+
+      - name: Test Bundling with Redocly
+        run: npm run bundle
+
+      - name: Checkout main for Breaking Change Check
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-branch
+        continue-on-error: true
+
+      - name: Check for Breaking Changes with oasdiff
+        id: check-breaking
+        run: |
+          if [ -f "main-branch/contracts/v1/openapi.yaml" ]; then
+            echo "Base contract found on main branch. Checking for breaking changes..."
+            npx @redocly/cli bundle main-branch/contracts/v1/openapi.yaml -o dist/base.yaml
+            npx @redocly/cli bundle contracts/v1/openapi.yaml -o dist/revision.yaml
+            docker run --rm -v $(pwd):/work:ro tufin/oasdiff -base /work/dist/base.yaml -revision /work/dist/revision.yaml -breaking -fail-on-diff
+          else
+            echo "No existing contract found on main branch (initial setup). Skipping oasdiff check."
+          fi
+

@@ -1,0 +1,10 @@
+type: string
+description: Aktueller Status eines NBA-Spiels.
+enum:
+  - SCHEDULED
+  - IN_PROGRESS
+  - FINAL
+  - POSTPONED
+  - CANCELLED
+example: SCHEDULED
+

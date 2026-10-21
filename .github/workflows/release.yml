@@ -30,6 +30,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
+            dist/nbahon-contracts-v1.yaml
+            dist/nbahon-contracts-v1.json
             dist/nbahon-games-v1.yaml
             dist/nbahon-games-v1.json
           generate_release_notes: true

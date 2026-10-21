@@ -7,18 +7,20 @@ Microservices, Gateways und Frontend-Clients beziehen die Verträge zur Build-Ze
 
 ## 1. Bezug der Verträge über GitHub Release Assets
 
-Bei jedem Release-Tag (z. B. `v1.0.0`) erzeugt die GitHub Actions Pipeline automatisch zwei konsolidierte (gebündelte) Artefakte:
-- `nbahon-games-v1.yaml` (YAML-Format)
-- `nbahon-games-v1.json` (JSON-Format)
+Bei jedem Release-Tag (z. B. `v1.1.0`) erzeugt die GitHub Actions Pipeline automatisch konsolidierte (gebündelte) Artefakte:
+- `nbahon-contracts-v1.yaml` (YAML-Format, primär)
+- `nbahon-contracts-v1.json` (JSON-Format)
+- `nbahon-games-v1.yaml` (YAML-Format, Fallback/Alias)
+- `nbahon-games-v1.json` (JSON-Format, Fallback/Alias)
 
 Die permanente Download-URL lautet:
 ```text
-https://github.com/Olleritsch/app-nbahon-contracts/releases/download/<TAG>/nbahon-games-v1.yaml
+https://github.com/Olleritsch/app-nbahon-contracts/releases/download/<TAG>/nbahon-contracts-v1.yaml
 ```
 
-Beispiel für Version `v1.0.0`:
+Beispiel für Version `v1.1.0`:
 ```text
-https://github.com/Olleritsch/app-nbahon-contracts/releases/download/v1.0.0/nbahon-games-v1.yaml
+https://github.com/Olleritsch/app-nbahon-contracts/releases/download/v1.1.0/nbahon-contracts-v1.yaml
 ```
 
 ---
@@ -40,7 +42,7 @@ Im Microservice (z. B. `app-nbahon-natstat-connector`) wird das `openapi-generat
             </goals>
             <configuration>
                 <!-- URL zum Release-Asset des Contracts-Repositorys -->
-                <inputSpec>https://github.com/Olleritsch/app-nbahon-contracts/releases/download/v1.0.0/nbahon-games-v1.yaml</inputSpec>
+                <inputSpec>https://github.com/Olleritsch/app-nbahon-contracts/releases/download/v1.1.0/nbahon-contracts-v1.yaml</inputSpec>
                 <generatorName>spring</generatorName>
                 <library>spring-boot</library>
                 <apiPackage>click.dempster.nbahon.contracts.v1.api</apiPackage>

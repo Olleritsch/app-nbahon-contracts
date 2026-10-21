@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: nbahon API Contracts
-  version: 1.0.0
+  version: 1.1.0
   description: Zentrale Schnittstellenverträge für das NBA-Ökosystem von nbahon.
   contact:
     name: Oliver (@Olleritsch)
@@ -12,10 +12,14 @@ servers:
 tags:
   - name: Gamedays
     description: Endpunkte zur Abfrage von NBA-Spieltagen und Partien
+  - name: Teams
+    description: Endpunkte zur Abfrage von NBA-Teams
 
 paths:
   /api/gamedays/{date}/games:
     $ref: './paths/gamedays.yaml'
+  /api/teams:
+    $ref: './paths/teams.yaml'
 
 components:
   schemas:

@@ -13,7 +13,7 @@ flowchart TD
     subgraph Repo["Repo: app-nbahon-contracts"]
         S["OpenAPI 3.1 Definitionen<br/>(openapi.yaml, schemas/)"]
         CI["GitHub Actions CI<br/>- Spectral Linting<br/>- oasdiff (Breaking Changes)"]
-        Rel["GitHub Release vX.Y.Z<br/>- Asset: nbahon-games-v1.yaml<br/>- Asset: nbahon-games-v1.json"]
+        Rel["GitHub Release vX.Y.Z<br/>- Asset: nbahon-contracts-v1.yaml (Fallback: nbahon-games-v1.yaml)<br/>- Asset: nbahon-contracts-v1.json (Fallback: nbahon-games-v1.json)"]
         S --> CI --> Rel
     end
 
@@ -38,7 +38,8 @@ app-nbahon-contracts/
 │   └── v1/
 │       ├── openapi.yaml             # Hauptspezifikation (Root v1)
 │       ├── paths/
-│       │   └── gamedays.yaml        # Endpunkte: /api/gamedays/{date}/games
+│       │   ├── gamedays.yaml        # Endpunkte: /api/gamedays/{date}/games
+│       │   └── teams.yaml           # Endpunkte: /api/teams
 │       └── schemas/
 │           ├── game.yaml            # Schema: Game
 │           ├── team.yaml            # Schema: Team
@@ -79,7 +80,7 @@ app-nbahon-contracts/
    ```bash
    npm run bundle
    ```
-   Erzeugt `dist/nbahon-games-v1.yaml` und `dist/nbahon-games-v1.json`.
+   Erzeugt `dist/nbahon-contracts-v1.yaml` und `dist/nbahon-contracts-v1.json` (sowie Alias-Kopien `dist/nbahon-games-v1.yaml` und `dist/nbahon-games-v1.json`).
 
 4. **Vollständiger Testlauf (Lint + Bundle):**
    ```bash
@@ -98,12 +99,12 @@ app-nbahon-contracts/
 1. Änderungen per Pull Request auf `develop` bzw. `main` mergen (CI validiert Syntax, Bundling und Abwärtskompatibilität).
 2. Git-Tag setzen und pushen:
    ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
+   git tag v1.1.0
+   git push origin v1.1.0
    ```
 3. Der GitHub Workflow `.github/workflows/release.yml` erstellt automatisch ein GitHub-Release mit den gebündelten Artefakten:
-   - `nbahon-games-v1.yaml`
-   - `nbahon-games-v1.json`
+   - `nbahon-contracts-v1.yaml` (und Fallback `nbahon-games-v1.yaml`)
+   - `nbahon-contracts-v1.json` (und Fallback `nbahon-games-v1.json`)
 
 ---
 

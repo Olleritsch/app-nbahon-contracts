@@ -1,0 +1,65 @@
+type: object
+description: Aggregierte Team-Statistiken für ein einzelnes Spiel.
+required:
+  - points
+properties:
+  points:
+    type: integer
+    description: Gesamtanzahl der erzielten Punkte des Teams.
+    example: 112
+  fieldGoalsMade:
+    type: integer
+    description: Erfolgreiche Würfe aus dem Feld (FGM).
+    example: 42
+  fieldGoalsAttempted:
+    type: integer
+    description: Versuchte Würfe aus dem Feld (FGA).
+    example: 88
+  threePointersMade:
+    type: integer
+    description: Erfolgreiche Dreipunktewürfe (3PM).
+    example: 14
+  threePointersAttempted:
+    type: integer
+    description: Versuchte Dreipunktewürfe (3PA).
+    example: 36
+  freeThrowsMade:
+    type: integer
+    description: Erfolgreiche Freiwürfe (FTM).
+    example: 14
+  freeThrowsAttempted:
+    type: integer
+    description: Versuchte Freiwürfe (FTA).
+    example: 18
+  reboundsOffensive:
+    type: integer
+    description: Offensiv-Rebounds (OREB).
+    example: 8
+  reboundsDefensive:
+    type: integer
+    description: Defensiv-Rebounds (DREB).
+    example: 34
+  reboundsTotal:
+    type: integer
+    description: Gesamtanzahl der Rebounds (REB).
+    example: 42
+  assists:
+    type: integer
+    description: Korbvorlagen (AST).
+    example: 28
+  steals:
+    type: integer
+    description: Ballgewinne (STL).
+    example: 7
+  blocks:
+    type: integer
+    description: Geblockte Würfe (BLK).
+    example: 5
+  turnovers:
+    type: integer
+    description: Ballverluste (TO).
+    example: 12
+  personalFouls:
+    type: integer
+    description: Persönliche Fouls (PF).
+    example: 19

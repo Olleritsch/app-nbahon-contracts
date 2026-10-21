@@ -1,0 +1,20 @@
+type: object
+description: Boxscore mit aggregierten Teamstatistiken und individuellen Spielerstatistiken für Heim- und Auswärtsteam.
+required:
+  - homeTeam
+  - awayTeam
+properties:
+  homeTeam:
+    $ref: './TeamGameStats.yaml'
+  awayTeam:
+    $ref: './TeamGameStats.yaml'
+  homePlayers:
+    type: array
+    description: Aufstellung und Statistiken der Spieler des Heimteams.
+    items:
+      $ref: './PlayerBoxscore.yaml'
+  awayPlayers:
+    type: array
+    description: Aufstellung und Statistiken der Spieler des Auswärtsteams.
+    items:
+      $ref: './PlayerBoxscore.yaml'

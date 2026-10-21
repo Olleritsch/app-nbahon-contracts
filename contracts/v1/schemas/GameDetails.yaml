@@ -1,0 +1,8 @@
+type: object
+description: Detaillierte Spieldaten inklusive optionalem Boxscore für beendete oder laufende Spiele.
+allOf:
+  - $ref: './Game.yaml'
+  - type: object
+    properties:
+      boxscore:
+        $ref: './Boxscore.yaml'

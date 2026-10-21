@@ -1,0 +1,74 @@
+type: object
+description: Individuelle Spielerstatistiken für ein Spiel.
+required:
+  - playerId
+  - name
+properties:
+  playerId:
+    type: string
+    description: Eindeutige Kennung des Spielers.
+    example: "203999"
+  name:
+    type: string
+    description: Vollständiger Name des Spielers.
+    example: "Nikola Jokic"
+  starter:
+    type: boolean
+    description: Gibt an, ob der Spieler in der Startformation (Starting Five) stand.
+    example: true
+  minutes:
+    type: string
+    description: Gespielte Einsatzzeit im Format MM:SS.
+    example: "34:12"
+  points:
+    type: integer
+    description: Erzielte Punkte (PTS).
+    example: 28
+  rebounds:
+    type: integer
+    description: Gesamtanzahl Rebounds (REB).
+    example: 14
+  assists:
+    type: integer
+    description: Korbvorlagen (AST).
+    example: 10
+  steals:
+    type: integer
+    description: Ballgewinne (STL).
+    example: 2
+  blocks:
+    type: integer
+    description: Geblockte Würfe (BLK).
+    example: 1
+  turnovers:
+    type: integer
+    description: Ballverluste (TO).
+    example: 3
+  fieldGoalsMade:
+    type: integer
+    description: Erfolgreiche Feldwürfe (FGM).
+    example: 11
+  fieldGoalsAttempted:
+    type: integer
+    description: Versuchte Feldwürfe (FGA).
+    example: 18
+  threePointersMade:
+    type: integer
+    description: Erfolgreiche Dreipunktewürfe (3PM).
+    example: 2
+  threePointersAttempted:
+    type: integer
+    description: Versuchte Dreipunktewürfe (3PA).
+    example: 4
+  freeThrowsMade:
+    type: integer
+    description: Erfolgreiche Freiwürfe (FTM).
+    example: 4
+  freeThrowsAttempted:
+    type: integer
+    description: Versuchte Freiwürfe (FTA).
+    example: 5
+  plusMinus:
+    type: integer
+    description: Plus/Minus-Statistik des Spielers während seiner Spielzeit.
+    example: 12

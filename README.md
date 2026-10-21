@@ -39,15 +39,21 @@ app-nbahon-contracts/
 │       ├── openapi.yaml             # Hauptspezifikation (Root v1)
 │       ├── paths/
 │       │   ├── gamedays.yaml        # Endpunkte: /api/gamedays/{date}/games
+│       │   ├── game-details.yaml    # Endpunkte: /api/gamedays/{date}/games/{matchup}
+│       │   ├── boxscore.yaml        # Endpunkte: /api/gamedays/{date}/games/{matchup}/boxscore
 │       │   └── teams.yaml           # Endpunkte: /api/teams
 │       └── schemas/
-│           ├── game.yaml            # Schema: Game
-│           ├── team.yaml            # Schema: Team
-│           ├── venue.yaml           # Schema: Venue
-│           ├── score.yaml           # Schema: Score
-│           ├── timezone-info.yaml   # Schema: TimeZoneInfo
-│           ├── game-status.yaml     # Schema: GameStatus (Enum)
-│           └── problem-detail.yaml  # Schema: ProblemDetail (RFC 9457)
+│           ├── Game.yaml            # Schema: Game
+│           ├── GameDetails.yaml     # Schema: GameDetails
+│           ├── Boxscore.yaml        # Schema: Boxscore
+│           ├── TeamGameStats.yaml   # Schema: TeamGameStats
+│           ├── PlayerBoxscore.yaml  # Schema: PlayerBoxscore
+│           ├── Team.yaml            # Schema: Team
+│           ├── Venue.yaml           # Schema: Venue
+│           ├── Score.yaml           # Schema: Score
+│           ├── TimeZoneInfo.yaml    # Schema: TimeZoneInfo
+│           ├── GameStatus.yaml      # Schema: GameStatus (Enum)
+│           └── ProblemDetail.yaml   # Schema: ProblemDetail (RFC 9457)
 ├── docs/
 │   └── README.md                    # Detaillierter Leitfaden zur Konsumierung
 ├── .spectral.yaml                   # Linting-Regelsatz für OpenAPI Styleguide
@@ -99,8 +105,8 @@ app-nbahon-contracts/
 1. Änderungen per Pull Request auf `develop` bzw. `main` mergen (CI validiert Syntax, Bundling und Abwärtskompatibilität).
 2. Git-Tag setzen und pushen:
    ```bash
-   git tag v1.1.0
-   git push origin v1.1.0
+   git tag v1.2.0
+   git push origin v1.2.0
    ```
 3. Der GitHub Workflow `.github/workflows/release.yml` erstellt automatisch ein GitHub-Release mit den gebündelten Artefakten:
    - `nbahon-contracts-v1.yaml` (und Fallback `nbahon-games-v1.yaml`)

@@ -5,27 +5,42 @@ Microservices, Gateways und Frontend-Clients beziehen die Verträge zur Build-Ze
 
 ---
 
-## 1. Bezug der Verträge über GitHub Release Assets
+## 1. Bezug der Verträge über GitHub Pages (Empfohlen)
 
-Bei jedem Release-Tag (z. B. `v1.2.0`) erzeugt die GitHub Actions Pipeline automatisch konsolidierte (gebündelte) Artefakte:
-- `nbahon-contracts-v1.yaml` (YAML-Format, primär)
-- `nbahon-contracts-v1.json` (JSON-Format)
-- `nbahon-games-v1.yaml` (YAML-Format, Fallback/Alias)
-- `nbahon-games-v1.json` (JSON-Format, Fallback/Alias)
+GitHub Pages fungiert als performantes statisches CDN und Dokumentationsportal:
+- **Basis-URL:** `https://olleritsch.github.io/app-nbahon-contracts/`
+- **Interaktive API-Dokumentation im Browser:** `https://olleritsch.github.io/app-nbahon-contracts/`
 
-Die permanente Download-URL lautet:
+### Verfügbare CDN Download-URLs:
+
+| Typ | URL | Verwendung / Zweck |
+|---|---|---|
+| **SemVer (Pinned)** | `https://olleritsch.github.io/app-nbahon-contracts/v1.2.0/nbahon-contracts.yaml` | Feste, unveränderliche Version (empfohlen für Production Microservices) |
+| **Vollversioniert** | `https://olleritsch.github.io/app-nbahon-contracts/v1.2.0/nbahon-contracts-v1.2.0.yaml` | Alternative mit Versionsnummer im Dateinamen |
+| **Evergreen (Latest)** | `https://olleritsch.github.io/app-nbahon-contracts/latest/nbahon-contracts.yaml` | Zeigt stets auf den neuesten Entwicklungs-/Release-Stand |
+| **Major Evergreen** | `https://olleritsch.github.io/app-nbahon-contracts/v1/nbahon-contracts.yaml` | Bleibt stabil auf der neuesten `v1.x.y` Version |
+| **Legacy Fallback** | `https://olleritsch.github.io/app-nbahon-contracts/v1/nbahon-games-v1.yaml` | Rückwärtskompatibilität für ältere Connectors |
+
+*(Alle Pfade stehen analog auch mit `.json`-Dateiendung zur Verfügung).*
+
+---
+
+## 2. Bezug über GitHub Release Assets (Alternative)
+
+Bei jedem Release-Tag (z. B. `v1.2.0`) erzeugt die GitHub Actions Pipeline automatisch konsolidierte Artefakte unter den GitHub Releases:
+- `nbahon-contracts-v1.2.0.yaml` / `.json` (Vollversioniert)
+- `nbahon-contracts-v1.yaml` / `.json` (Major Alias)
+- `nbahon-contracts-latest.yaml` / `.json` (Latest Alias)
+- `nbahon-games-v1.yaml` / `.json` (Legacy Fallback)
+
+Die permanente Release-Download-URL lautet:
 ```text
-https://github.com/Olleritsch/app-nbahon-contracts/releases/download/<TAG>/nbahon-contracts-v1.yaml
-```
-
-Beispiel für Version `v1.2.0`:
-```text
-https://github.com/Olleritsch/app-nbahon-contracts/releases/download/v1.2.0/nbahon-contracts-v1.yaml
+https://github.com/Olleritsch/app-nbahon-contracts/releases/download/<TAG>/nbahon-contracts-v1.2.0.yaml
 ```
 
 ---
 
-## 2. Einbindung in Java / Spring Boot Microservices (`pom.xml`)
+## 3. Einbindung in Java / Spring Boot Microservices (`pom.xml`)
 
 Im Microservice (z. B. `app-nbahon-natstat-connector`) wird das `openapi-generator-maven-plugin` konfiguriert:
 
@@ -41,8 +56,8 @@ Im Microservice (z. B. `app-nbahon-natstat-connector`) wird das `openapi-generat
                 <goal>generate</goal>
             </goals>
             <configuration>
-                <!-- URL zum Release-Asset des Contracts-Repositorys -->
-                <inputSpec>https://github.com/Olleritsch/app-nbahon-contracts/releases/download/v1.2.0/nbahon-contracts-v1.yaml</inputSpec>
+                <!-- URL zum Contract via GitHub Pages (CDN) -->
+                <inputSpec>https://olleritsch.github.io/app-nbahon-contracts/v1.2.0/nbahon-contracts.yaml</inputSpec>
                 <generatorName>spring</generatorName>
                 <library>spring-boot</library>
                 <apiPackage>click.dempster.nbahon.contracts.v1.api</apiPackage>
@@ -66,12 +81,12 @@ Im Microservice (z. B. `app-nbahon-natstat-connector`) wird das `openapi-generat
 
 ---
 
-## 3. Generierung von Client SDKs (Frontend / Mobile)
+## 4. Generierung von Client SDKs (Frontend / Mobile)
 
 ### TypeScript / Axios
 ```bash
 npx @openapitools/openapi-generator-cli generate \
-  -i https://github.com/Olleritsch/app-nbahon-contracts/releases/download/v1.0.0/nbahon-games-v1.yaml \
+  -i https://olleritsch.github.io/app-nbahon-contracts/v1.2.0/nbahon-contracts.yaml \
   -g typescript-axios \
   -o ./generated/client
 ```
@@ -79,14 +94,14 @@ npx @openapitools/openapi-generator-cli generate \
 ### Dart / Flutter
 ```bash
 npx @openapitools/openapi-generator-cli generate \
-  -i https://github.com/Olleritsch/app-nbahon-contracts/releases/download/v1.0.0/nbahon-games-v1.yaml \
+  -i https://olleritsch.github.io/app-nbahon-contracts/v1.2.0/nbahon-contracts.yaml \
   -g dart-dio \
   -o ./generated/client
 ```
 
 ---
 
-## 4. Versionierungs- und Lifecycle-Regeln
+## 5. Versionierungs- und Lifecycle-Regeln
 
 Wir folgen strikt dem [Semantic Versioning (SemVer 2.0.0)](https://semver.org/):
 
@@ -98,7 +113,7 @@ Wir folgen strikt dem [Semantic Versioning (SemVer 2.0.0)](https://semver.org/):
 
 ---
 
-## 5. Lokale Entwicklung & Validierung von Änderungen
+## 6. Lokale Entwicklung & Validierung von Änderungen
 
 1. **Abhängigkeiten installieren:**
    ```bash
@@ -110,17 +125,22 @@ Wir folgen strikt dem [Semantic Versioning (SemVer 2.0.0)](https://semver.org/):
    npm run lint
    ```
 
-3. **Bundling (Redocly):**
+3. **Bündeln (Redocly mit voller SemVer & Aliase):**
    ```bash
    npm run bundle
    ```
 
-4. **Kombinierter Testlauf:**
+4. **GitHub Pages & HTML-Doku lokal bauen:**
+   ```bash
+   npm run build:pages
+   ```
+
+5. **Kombinierter Testlauf:**
    ```bash
    npm test
    ```
 
-5. **Interaktive Vorschau im Browser:**
+6. **Interaktive Vorschau im Browser:**
    ```bash
    npm run preview
    ```

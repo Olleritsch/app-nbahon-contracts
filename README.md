@@ -12,14 +12,18 @@ Dieses Repository stellt sprachneutrale Contract-Definitionen bereit. Es dient a
 flowchart TD
     subgraph Repo["Repo: app-nbahon-contracts"]
         S["OpenAPI 3.1 Definitionen<br/>(openapi.yaml, schemas/)"]
-        CI["GitHub Actions CI<br/>- Spectral Linting<br/>- oasdiff (Breaking Changes)"]
-        Rel["GitHub Release vX.Y.Z<br/>- Asset: nbahon-contracts-v1.yaml (Fallback: nbahon-games-v1.yaml)<br/>- Asset: nbahon-contracts-v1.json (Fallback: nbahon-games-v1.json)"]
-        S --> CI --> Rel
+        CI["GitHub Actions CI<br/>- Spectral Linting<br/>- oasdiff"]
+        Rel["GitHub Releases (Assets)<br/>- nbahon-contracts-v1.2.0.yaml<br/>- nbahon-contracts-v1.yaml<br/>- nbahon-contracts-latest.yaml"]
+        Pages["GitHub Pages (CDN & Docs)<br/>- Web-UI: / (Redocly)<br/>- SemVer: /v1.2.0/nbahon-contracts.yaml<br/>- Evergreen: /latest/nbahon-contracts.yaml"]
+        S --> CI
+        CI --> Rel
+        CI --> Pages
     end
 
-    Rel -->|"Download URL zur Build-Zeit"| C1["app-nbahon-natstat-connector<br/>(Provider / Adapter)"]
-    Rel -->|"Download URL zur Build-Zeit"| C2["künftiger Cache-Service<br/>(Consumer / API Gateway)"]
-    Rel -->|"Client SDK Generierung"| C3["Frontend / Mobile Clients"]
+    Pages & Rel -->|"HTTPS Download / Build-Zeit"| C1["app-nbahon-natstat-connector<br/>(Provider / Adapter)"]
+    Pages & Rel -->|"HTTPS Download / Build-Zeit"| C2["künftiger Cache-Service<br/>(Consumer / API Gateway)"]
+    Pages & Rel -->|"Client SDK Generierung"| C3["Frontend / Mobile Clients"]
+    Pages -->|"Interaktive API-Doku"| Dev["Entwickler im Browser"]
 ```
 
 ---
@@ -33,6 +37,7 @@ app-nbahon-contracts/
 ├── .github/
 │   └── workflows/
 │       ├── lint-and-validate.yml    # CI bei PRs (Spectral + oasdiff)
+│       ├── pages.yml                # Deployt Dokumentation & Specs auf GitHub Pages
 │       └── release.yml              # Erstellt Release-Assets bei Tags (v*)
 ├── contracts/
 │   └── v1/
@@ -56,6 +61,9 @@ app-nbahon-contracts/
 │           └── ProblemDetail.yaml   # Schema: ProblemDetail (RFC 9457)
 ├── docs/
 │   └── README.md                    # Detaillierter Leitfaden zur Konsumierung
+├── scripts/
+│   ├── bundle.js                    # Bündelt Verträge mit SemVer & Alias-Dateien
+│   └── prepare-pages.js             # Bereitet Ordnerstruktur für GitHub Pages vor
 ├── .spectral.yaml                   # Linting-Regelsatz für OpenAPI Styleguide
 ├── .gitignore
 ├── LICENSE
@@ -86,31 +94,48 @@ app-nbahon-contracts/
    ```bash
    npm run bundle
    ```
-   Erzeugt `dist/nbahon-contracts-v1.yaml` und `dist/nbahon-contracts-v1.json` (sowie Alias-Kopien `dist/nbahon-games-v1.yaml` und `dist/nbahon-games-v1.json`).
+   Erzeugt vollversionierte SemVer-Dateien (z. B. `dist/nbahon-contracts-v1.2.0.yaml`), Major-Aliase (`v1`), `latest` sowie Legacy-Fallbacks (`games-v1`).
 
-4. **Vollständiger Testlauf (Lint + Bundle):**
+4. **GitHub Pages lokal vorbereiten & HTML-Dokumentation bauen:**
+   ```bash
+   npm run build:pages
+   ```
+   Erzeugt die interaktive Dokumentation (`public/index.html`) sowie alle versionierten Pages-Dateien in `public/`.
+
+5. **Vollständiger Testlauf (Lint + Bundle):**
    ```bash
    npm test
    ```
 
-5. **Interaktive Dokumentations-Vorschau:**
+6. **Interaktive Dokumentations-Vorschau (Live-Server):**
    ```bash
    npm run preview
    ```
 
 ---
 
-## Release-Workflow
+## Verteilung & Releases
 
-1. Änderungen per Pull Request auf `develop` bzw. `main` mergen (CI validiert Syntax, Bundling und Abwärtskompatibilität).
+### A. GitHub Pages CDN & Web-Dokumentation (Empfohlen)
+Die Verträge werden automatisch bei Pushes auf `main` sowie bei Tags via GitHub Actions nach GitHub Pages ausgeliefert:
+- **Basis-URL:** `https://olleritsch.github.io/app-nbahon-contracts/`
+- **Interaktive Doku:** `https://olleritsch.github.io/app-nbahon-contracts/`
+- **SemVer (Pinned):** `https://olleritsch.github.io/app-nbahon-contracts/v1.2.0/nbahon-contracts.yaml` (und `.json`)
+- **Evergreen Latest:** `https://olleritsch.github.io/app-nbahon-contracts/latest/nbahon-contracts.yaml`
+- **Major Evergreen:** `https://olleritsch.github.io/app-nbahon-contracts/v1/nbahon-contracts.yaml`
+
+### B. GitHub Releases (Assets)
+1. Änderungen per Pull Request auf `main` mergen.
 2. Git-Tag setzen und pushen:
    ```bash
    git tag v1.2.0
    git push origin v1.2.0
    ```
-3. Der GitHub Workflow `.github/workflows/release.yml` erstellt automatisch ein GitHub-Release mit den gebündelten Artefakten:
-   - `nbahon-contracts-v1.yaml` (und Fallback `nbahon-games-v1.yaml`)
-   - `nbahon-contracts-v1.json` (und Fallback `nbahon-games-v1.json`)
+3. Der GitHub Workflow `.github/workflows/release.yml` erstellt automatisch ein GitHub-Release mit allen Assets aus `dist/`:
+   - `nbahon-contracts-v1.2.0.yaml` / `.json` (Vollversioniert)
+   - `nbahon-contracts-v1.yaml` / `.json` (Major Alias)
+   - `nbahon-contracts-latest.yaml` / `.json` (Latest Alias)
+   - `nbahon-games-v1.yaml` / `.json` (Legacy Fallback)
 
 ---
 

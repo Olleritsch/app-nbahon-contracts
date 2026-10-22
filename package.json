@@ -4,8 +4,10 @@
   "private": true,
   "description": "Zentrale OpenAPI 3.1 Schnittstellenverträge für das nbahon-Ökosystem",
   "scripts": {
-    "bundle": "mkdir -p dist && redocly bundle contracts/v1/openapi.yaml -o dist/nbahon-contracts-v1.yaml && redocly bundle contracts/v1/openapi.yaml -o dist/nbahon-contracts-v1.json && cp dist/nbahon-contracts-v1.yaml dist/nbahon-games-v1.yaml && cp dist/nbahon-contracts-v1.json dist/nbahon-games-v1.json",
-    "lint": "npm run bundle && spectral lint dist/nbahon-contracts-v1.yaml --ruleset .spectral.yaml",
+    "bundle": "node scripts/bundle.js",
+    "build:docs": "mkdir -p public && redocly build-docs contracts/v1/openapi.yaml -o public/index.html",
+    "build:pages": "npm run bundle && npm run build:docs && node scripts/prepare-pages.js",
+    "lint": "npm run bundle && spectral lint dist/nbahon-contracts-latest.yaml --ruleset .spectral.yaml",
     "test": "npm run lint",
     "preview": "redocly preview-docs contracts/v1/openapi.yaml"
   },

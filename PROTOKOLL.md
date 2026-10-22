@@ -1,112 +1,135 @@
 # Gedächtnisprotokoll & Projektstatus: app-nbahon-contracts
 
-> **Zweck dieses Dokuments:** Lückenlose Dokumentation des aktuellen Entwicklungsstands, der Architektur, der getroffenen Entscheidungen und der nächsten Schritte vor einem Neustart des Devcontainers/der Entwicklungsumgebung.
+> **Zweck dieses Dokuments:** Lückenlose Dokumentation des aktuellen Entwicklungsstands, der Multi-API-Architektur, der getroffenen Entscheidungen und der nächsten Schritte vor einem Neustart des Devcontainers/der Entwicklungsumgebung.
 
 **Stand:** 22. Oktober 2026  
-**Aktuelle Spezifikationsversion:** `1.2.0`  
-**Aktueller Git-Branch:** `main` (Up-to-date mit `origin/main`)  
-**Letzter Commit:** `4cdfeb6` (`feat: add full semver contract bundling and github pages distribution workflow`)  
-**Git-Tags im Repository:** `v1.0.0`, `v1.1.0`, `v1.2.0`  
+**Architektur:** Multi-API Contract Hub (OpenAPI 3.1)  
+**Aktueller Git-Branch:** `main`  
+**Registrierte APIs:**
+- `nbahon-natstat-connector` (Version: `1.2.0`)
+- `nbahon-core` (Version: `1.0.0`)
 
 ---
 
 ## 1. Projektübersicht
 
 `app-nbahon-contracts` ist die **Single Source of Truth** für alle Schnittstellenverträge im nbahon-Ökosystem (OpenAPI 3.1).
-Konsumierende Dienste (wie `app-nbahon-natstat-connector`, Gateways oder Mobile/Web-Frontends) generieren ihre DTOs und Controller/Client-Interfaces zur Build-Zeit direkt aus diesen Spezifikationen.
+Das Repository beherbergt als Multi-API Hub sowohl Upstream-BFF-Verträge (`nbahon-core`) als auch Downstream-Konnektor-Verträge (`nbahon-natstat-connector`).
+Alle Verträge werden modular gepflegt (`paths/` und `schemas/`), per Redocly gebündelt und automatisiert über ein modernes GitHub Pages Portal sowie GitHub Releases bereitgestellt.
 
 ---
 
-## 2. Aktueller Funktionsumfang (Spezifikation v1.2.0)
+## 2. Struktur der API-Verträge (`contracts/`)
 
-### A. Endpunkte (`contracts/v1/paths/`)
-1. **`GET /api/gamedays/{date}/games`** ([`gamedays.yaml`](contracts/v1/paths/gamedays.yaml))
-   - Liefert alle NBA-Partien eines bestimmten Kalendertags (`YYYY-MM-DD`).
-   - Tag: `Gamedays`
-2. **`GET /api/teams`** ([`teams.yaml`](contracts/v1/paths/teams.yaml))
-   - Liefert alle 30 NBA-Franchises.
-   - Optionaler Query-Parameter: `conference` (`Eastern` | `Western`).
-   - Tag: `Teams`
-3. **`GET /api/gamedays/{date}/games/{matchup}`** ([`game-details.yaml`](contracts/v1/paths/game-details.yaml))
-   - Liefert Spieldetails für eine bestimmte Paarung (z. B. `DET@MIA`) inklusive optionalem Boxscore.
-   - Tag: `Games`
-4. **`GET /api/gamedays/{date}/games/{matchup}/boxscore`** ([`boxscore.yaml`](contracts/v1/paths/boxscore.yaml))
-   - Liefert vollständige Team- und Spielerstatistiken für das Matchup.
-   - Tag: `Games`
-
-### B. Schemas (`contracts/v1/schemas/`)
-- **`Game.yaml`**: Grunddaten eines Spiels (ID, Datum, Tip-Off, Status, Teams, Venue, Score).
-- **`GameDetails.yaml`**: Erweitert `Game` per `allOf` um das optionale Feld `boxscore`.
-- **`TeamGameStats.yaml`**: Aggregierte Team-Statistiken (Punkte, FGM/FGA, 3PM/3PA, FTM/FTA, Rebounds, Assists, Steals, Blocks, Turnovers, Fouls).
-- **`PlayerBoxscore.yaml`**: Detaillierte Spielerstatistiken (Starter, Minuten, Punkte, Quoten, Plus/Minus etc.).
-- **`Boxscore.yaml`**: Aggregiert `homeTeam`, `awayTeam` (`TeamGameStats`) sowie `homePlayers`, `awayPlayers` (Arrays von `PlayerBoxscore`).
-- **`Team.yaml`**: Teamdaten (ID, Name, Kürzel/TLA, Stadt, Conference, Division).
-- **`Score.yaml`**: Punktestand mit Periodenübersicht (Quarter / Overtime).
-- **`Venue.yaml`**: Spielstätte (Name, Stadt).
-- **`TimeZoneInfo.yaml`**: Zeitzoneninformationen (Name, Offset).
-- **`GameStatus.yaml`**: Spielstatus-Enum (`SCHEDULED`, `LIVE`, `FINAL`).
-- **`ProblemDetail.yaml`**: Standardisierte RFC 9457 Fehlerobjekte (für 400, 404, 500).
+```text
+contracts/
+├── connectors/
+│   └── natstat/
+│       └── v1/                          <-- NatStat Downstream Connector (v1.2.0)
+│           ├── openapi.yaml
+│           ├── paths/
+│           │   ├── gamedays.yaml        (GET /api/gamedays/{date}/games)
+│           │   ├── game-details.yaml    (GET /api/gamedays/{date}/games/{matchup})
+│           │   ├── boxscore.yaml        (GET /api/gamedays/{date}/games/{matchup}/boxscore)
+│           │   └── teams.yaml           (GET /api/teams)
+│           └── schemas/
+│               ├── Game.yaml
+│               ├── GameDetails.yaml
+│               ├── Boxscore.yaml
+│               ├── TeamGameStats.yaml
+│               ├── PlayerBoxscore.yaml
+│               ├── Team.yaml
+│               ├── Score.yaml
+│               ├── Venue.yaml
+│               ├── TimeZoneInfo.yaml
+│               ├── GameStatus.yaml
+│               └── ProblemDetail.yaml
+└── core/
+    └── v1/                              <-- Core Orchestrator & BFF API (v1.0.0)
+        ├── openapi.yaml
+        ├── paths/
+        │   ├── gamedays.yaml            (GET /api/v1/core/gamedays/{date})
+        │   └── games.yaml               (GET /api/v1/core/games/{date}/{matchup})
+        └── schemas/
+            ├── AggregatedGameday.yaml
+            ├── AggregatedGame.yaml
+            ├── AggregatedGameView.yaml
+            ├── TeamOverview.yaml
+            ├── ScoreSummary.yaml
+            ├── MatchupOverview.yaml
+            ├── GameAnalysis.yaml
+            └── ProblemDetail.yaml
+```
 
 ---
 
-## 3. Build- und Release-Architektur
-
-Es existieren zwei parallele Verteilungswege:
+## 3. Build-, Validierungs- und Bereitstellungsarchitektur
 
 ```mermaid
 flowchart TD
-    subgraph Repo["Repository: app-nbahon-contracts"]
-        OpenAPI["contracts/v1/openapi.yaml<br/>(info.version: 1.2.0)"]
+    subgraph Repositories["contracts/"]
+        CoreSpec["contracts/core/v1/openapi.yaml"]
+        NatstatSpec["contracts/connectors/natstat/v1/openapi.yaml"]
+    end
+
+    subgraph BuildPipeline["Build & Distribution Pipeline"]
         Bundle["node scripts/bundle.js"]
+        Lint["spectral lint (Spectral Ruleset)"]
         PagesPrep["node scripts/prepare-pages.js"]
-        DocGen["redocly build-docs"]
-        OpenAPI --> Bundle
-        OpenAPI --> DocGen
-        Bundle & DocGen --> PagesPrep
     end
 
-    subgraph CI["GitHub Actions Pipelines"]
-        W1[".github/workflows/lint-and-validate.yml<br/>(PRs: Spectral Linting + oasdiff)"]
-        W2[".github/workflows/pages.yml<br/>(Push auf main / Tags: Deploy auf GitHub Pages)"]
-        W3[".github/workflows/release.yml<br/>(Git-Tags v*: Upload GitHub Release Assets)"]
+    subgraph DistOutput["dist/ (Release Artefakte)"]
+        DistCore["nbahon-core-v1.0.0.(yaml|json)<br/>nbahon-core-latest.(yaml|json)"]
+        DistNat["nbahon-natstat-connector-v1.2.0.(yaml|json)<br/>nbahon-natstat-connector-latest.(yaml|json)"]
     end
 
-    subgraph Distribution["Verteilung & Konsumierung"]
-        PagesCDN["GitHub Pages CDN & Web-Doku<br/>https://olleritsch.github.io/app-nbahon-contracts/"]
-        GHReleases["GitHub Releases Assets<br/>https://github.com/Olleritsch/app-nbahon-contracts/releases/"]
+    subgraph PagesOutput["public/ (GitHub Pages Portal)"]
+        IndexHtml["index.html (API Registry Portal)"]
+        DocsCore["docs/core/index.html (Redoc)"]
+        DocsNat["docs/natstat-connector/index.html (Redoc)"]
+        ContractsDown["contracts/*.yaml & *.json"]
     end
 
-    Repo --> CI
-    W2 --> PagesCDN
-    W3 --> GHReleases
+    Repositories --> Bundle
+    Bundle --> DistOutput
+    DistOutput --> Lint
+    DistOutput --> PagesPrep
+    PagesPrep --> PagesOutput
 ```
 
-### A. Vollversioniertes Bundling (`scripts/bundle.js`)
-Liest dynamisch `info.version` aus der OpenAPI-Spezifikation und erzeugt in `dist/`:
-- `nbahon-contracts-v1.2.0.yaml` und `.json` (Vollversioniert SemVer)
-- `nbahon-contracts-v1.yaml` und `.json` (Major-Version Alias)
-- `nbahon-contracts-latest.yaml` und `.json` (Latest Alias)
-- `nbahon-games-v1.yaml` und `.json` (Legacy-Fallback)
+### A. Bundling (`scripts/bundle.js`)
+Liest alle registrierten APIs aus, ermittelt dynamisch die SemVer-Version und erzeugt in `dist/`:
+- `nbahon-core-v1.0.0.yaml` & `.json`
+- `nbahon-core-latest.yaml` & `.json`
+- `nbahon-natstat-connector-v1.2.0.yaml` & `.json`
+- `nbahon-natstat-connector-latest.yaml` & `.json`
 
-### B. GitHub Pages Distribution & Doku (`scripts/prepare-pages.js` + `.github/workflows/pages.yml`)
-Befüllt `public/` und deployt bei jedem Push auf `main` sowie bei Tags auf GitHub Pages:
-- **Basis-URL & Interaktive Redoc-Webseite:** `https://olleritsch.github.io/app-nbahon-contracts/`
-- **SemVer Pinned (für Production-Services):** `https://olleritsch.github.io/app-nbahon-contracts/v1.2.0/nbahon-contracts.yaml`
-- **Vollversionierter Dateiname:** `https://olleritsch.github.io/app-nbahon-contracts/v1.2.0/nbahon-contracts-v1.2.0.yaml`
-- **Evergreen Latest (keine 404-Gefahr mehr!):** `https://olleritsch.github.io/app-nbahon-contracts/latest/nbahon-contracts.yaml`
-- **Major Evergreen:** `https://olleritsch.github.io/app-nbahon-contracts/v1/nbahon-contracts.yaml`
-- *(Alle Pfade existieren parallel auch als `.json`)*
+### B. GitHub Pages Portal (`scripts/prepare-pages.js`)
+Erzeugt die statische Webpräsenz in `public/`:
+- **Portal Landing Page:** `https://olleritsch.github.io/app-nbahon-contracts/`
+- **Interaktive Redoc Dokumentationen:**
+  - Core BFF: `https://olleritsch.github.io/app-nbahon-contracts/docs/core/`
+  - NatStat Connector: `https://olleritsch.github.io/app-nbahon-contracts/docs/natstat-connector/`
+- **Direkt-Download & Codegen-URLs (SemVer Pinned & Latest):**
+  - Core v1.0.0: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-v1.0.0.yaml`
+  - Core Latest: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-latest.yaml`
+  - NatStat Connector v1.2.0: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-natstat-connector-v1.2.0.yaml`
+  - NatStat Connector Latest: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-natstat-connector-latest.yaml`
 
 ---
 
-## 4. Chronologie der Versionen & Git-Historie
+## 4. GitHub Actions Workflows
 
-| Version | Git-Tag / Commit | Highlights |
-|---|---|---|
-| **v1.0.0** | Tag `v1.0.0` (`332e324`) | Initiale OpenAPI 3.1 Spezifikation, Devcontainer, CI (Spectral + oasdiff), Release-Pipeline, `/api/gamedays/{date}/games`. |
-| **v1.1.0** | Tag `v1.1.0` (`e46f785`) | Neuer Endpunkt `GET /api/teams` mit `conference`-Filter. |
-| **v1.2.0** | Tag `v1.2.0` (`dc78139`) | Matchup-Endpunkte `GET /api/gamedays/{date}/games/{matchup}` und `/boxscore`, Schemas für `TeamGameStats`, `PlayerBoxscore`, `Boxscore`, `GameDetails`. |
-| **Post-v1.2.0** | Commit `4cdfeb6` (`HEAD -> main`) | Vollversionierte Dateinamen beim Bündeln, GitHub Pages Workflow (`pages.yml`), `scripts/bundle.js` und `scripts/prepare-pages.js`, Dokumentations-Update. |
+1. **`.github/workflows/pages.yml`**:
+   - Triggert bei Pushes auf `main` und bei Tags `v*`.
+   - Baut alle Contracts und Dokumentationen (`npm run build:pages`) und veröffentlicht sie auf GitHub Pages.
+2. **`.github/workflows/lint-and-validate.yml`**:
+   - Triggert bei Pull Requests und Pushes auf `develop`.
+   - Führt Bündelung und Spectral Linting durch (`npm test`).
+   - Führt oasdiff Breaking-Change-Prüfung gegen den `main`-Branch für alle APIs aus.
+3. **`.github/workflows/release.yml`**:
+   - Triggert bei Tags `v*`.
+   - Bündelt alle Verträge und lädt die Artefakte aus `dist/*` in das GitHub Release hoch.
 
 ---
 
@@ -116,31 +139,33 @@ Befüllt `public/` und deployt bei jedem Push auf `main` sowie bei Tags auf GitH
 # 1. Abhängigkeiten installieren
 npm install
 
-# 2. Verträge bündeln (erzeugt alle SemVer-, Major-, Latest- und Legacy-Dateien in dist/)
+# 2. Verträge aller APIs bündeln
 npm run bundle
 
-# 3. Interaktive HTML-Doku & GitHub Pages Struktur in public/ generieren
-npm run build:pages
+# 3. Spectral Linting ausführen
+npm run lint
 
-# 4. Spectral Linting & Bundling-Test ausführen
+# 4. Gesamter Build- & Testablauf (Bundle + Lint)
 npm test
 
-# 5. Interaktive Dokumentations-Vorschau im Browser starten
-npm run preview
+# 5. Interaktive HTML-Dokus & Portal in public/ generieren
+npm run build:pages
+
+# 6. Live-Vorschau im Browser starten
+npm run preview:core      # Core BFF API
+npm run preview:natstat   # NatStat Connector API
 ```
 
 ---
 
-## 6. Offene To-Dos / Nächste Schritte
+## 6. Nächste Schritte
 
-1. **GitHub Pages in Repo-Einstellungen aktivieren (einmalig im GitHub Webinterface):**
-   - Gehe auf **GitHub: Repository ➔ Settings ➔ Pages**
-   - Unter **Build and deployment**: Wähle bei **Source** die Option **"GitHub Actions"**.
-   - Danach triggert jeder Push auf `main` den Workflow `.github/workflows/pages.yml` und die Seite ist live.
-
-2. **Konsumierende Services aktualisieren:**
-   - In `app-nbahon-natstat-connector` (oder anderen Services) in der `pom.xml` die `inputSpec` auf die neue URL umstellen:
+1. **Konsumierende Services anbinden bzw. umstellen:**
+   - In `app-nbahon-natstat-connector` in der `pom.xml` die URL auf die neue saubere URL umstellen:
      ```xml
-     <inputSpec>https://olleritsch.github.io/app-nbahon-contracts/v1.2.0/nbahon-contracts.yaml</inputSpec>
+     <inputSpec>https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-natstat-connector-v1.2.0.yaml</inputSpec>
      ```
-   - Build des Services durchführen und neue Klassen für `GameDetails`, `Boxscore`, `TeamGameStats` etc. nutzen.
+   - Im `app-nbahon-core` Repo die Core-Spezifikation für DTO-/Interface-Generierung einbinden:
+     ```xml
+     <inputSpec>https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-v1.0.0.yaml</inputSpec>
+     ```

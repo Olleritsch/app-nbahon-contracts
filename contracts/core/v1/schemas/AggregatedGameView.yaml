@@ -1,0 +1,12 @@
+type: object
+required:
+  - game
+properties:
+  game:
+    $ref: './AggregatedGame.yaml'
+  analysis:
+    $ref: './GameAnalysis.yaml'
+  boxscoreAvailable:
+    type: boolean
+    example: true
+

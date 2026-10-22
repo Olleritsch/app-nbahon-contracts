@@ -1,0 +1,17 @@
+type: object
+properties:
+  predictionSlot:
+    type: string
+    example: 'Analysis Hook Ready'
+  eloRatingDifference:
+    type: number
+    format: double
+    example: 42.5
+  formSummary:
+    type: string
+    example: 'Home team won 4 of last 5 games'
+  keyInsights:
+    type: array
+    items:
+      type: string
+

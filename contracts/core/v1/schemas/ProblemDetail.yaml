@@ -1,0 +1,28 @@
+type: object
+description: Standardisiertes Problem Detail Objekt gemäß RFC 9457.
+required:
+  - type
+  - title
+  - status
+properties:
+  type:
+    type: string
+    format: uri
+    example: 'about:blank'
+  title:
+    type: string
+    example: 'Bad Request'
+  status:
+    type: integer
+    example: 400
+  detail:
+    type: string
+    example: 'The provided date parameter is invalid.'
+  instance:
+    type: string
+    format: uri-reference
+    example: '/api/v1/core/gamedays/invalid-date'
+  timestamp:
+    type: string
+    format: date-time
+    example: '2026-10-21T21:30:00Z'

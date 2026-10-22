@@ -1,0 +1,34 @@
+type: object
+required:
+  - gameId
+  - matchup
+  - status
+  - homeTeam
+  - awayTeam
+properties:
+  gameId:
+    type: string
+    example: '401584701'
+  matchup:
+    type: string
+    example: 'BOS-MIA'
+  status:
+    type: string
+    enum: [SCHEDULED, IN_PROGRESS, FINAL, POSTPONED, CANCELLED]
+    example: 'FINAL'
+  startTime:
+    type: string
+    format: date-time
+    example: '2026-10-21T19:30:00Z'
+  homeTeam:
+    $ref: './TeamOverview.yaml'
+  awayTeam:
+    $ref: './TeamOverview.yaml'
+  score:
+    $ref: './ScoreSummary.yaml'
+  venue:
+    type: string
+    example: 'TD Garden, Boston'
+  matchupOverview:
+    $ref: './MatchupOverview.yaml'
+

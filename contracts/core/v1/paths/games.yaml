@@ -1,0 +1,54 @@
+get:
+  summary: Aggregiertes Spiel mit Detailanalyse abrufen
+  description: Liefert die aggregierte Vollansicht einer Partie inkl. Boxscore und Analyse-Slots.
+  operationId: getAggregatedGameView
+  tags:
+    - Core Games
+  parameters:
+    - name: date
+      in: path
+      required: true
+      description: Kalendertag des Spieltags im Format YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+        example: '2026-10-21'
+    - name: matchup
+      in: path
+      required: true
+      description: Matchup-Identifier (z.B. BOS-MIA).
+      schema:
+        type: string
+        example: 'BOS-MIA'
+  responses:
+    '200':
+      description: Spieldetails erfolgreich ermittelt.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/AggregatedGameView.yaml'
+    '400':
+      description: Ungültige Parameter.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../schemas/ProblemDetail.yaml'
+    '404':
+      description: Spiel für diesen Spieltag und Matchup nicht gefunden.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../schemas/ProblemDetail.yaml'
+    '500':
+      description: Interner Serverfehler.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../schemas/ProblemDetail.yaml'
+    '502':
+      description: Downstream-Konnektor nicht erreichbar.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../schemas/ProblemDetail.yaml'
+

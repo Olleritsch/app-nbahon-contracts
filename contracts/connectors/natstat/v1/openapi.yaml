@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
-  title: nbahon API Contracts
+  title: nbahon NatStat Connector API Contracts
   version: 1.2.0
-  description: Zentrale Schnittstellenverträge für das NBA-Ökosystem von nbahon.
+  description: Downstream-Schnittstellenverträge für den NatStat-Connector des nbahon-Ökosystems.
   contact:
     name: Oliver (@Olleritsch)
 servers:

@@ -1,0 +1,18 @@
+type: object
+required:
+  - homeScore
+  - awayScore
+properties:
+  homeScore:
+    type: integer
+    example: 112
+  awayScore:
+    type: integer
+    example: 104
+  currentPeriod:
+    type: integer
+    example: 4
+  periodTimeRemaining:
+    type: string
+    example: '00:00'
+

@@ -1,15 +1,15 @@
 {
   "name": "app-nbahon-contracts",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "description": "Zentrale OpenAPI 3.1 Schnittstellenverträge für das nbahon-Ökosystem",
   "scripts": {
     "bundle": "node scripts/bundle.js",
-    "build:docs": "mkdir -p public && redocly build-docs contracts/v1/openapi.yaml -o public/index.html",
-    "build:pages": "npm run bundle && npm run build:docs && node scripts/prepare-pages.js",
-    "lint": "npm run bundle && spectral lint dist/nbahon-contracts-latest.yaml --ruleset .spectral.yaml",
-    "test": "npm run lint",
-    "preview": "redocly preview-docs contracts/v1/openapi.yaml"
+    "build:pages": "npm run bundle && node scripts/prepare-pages.js",
+    "lint": "spectral lint \"dist/*-latest.yaml\" --ruleset .spectral.yaml",
+    "test": "npm run bundle && npm run lint",
+    "preview:core": "redocly preview-docs contracts/core/v1/openapi.yaml",
+    "preview:natstat": "redocly preview-docs contracts/connectors/natstat/v1/openapi.yaml"
   },
   "devDependencies": {
     "@redocly/cli": "^1.34.0",
@@ -17,4 +17,3 @@
     "@stoplight/spectral-rulesets": "^1.21.2"
   }
 }
-

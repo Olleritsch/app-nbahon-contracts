@@ -1,0 +1,25 @@
+type: object
+required:
+  - id
+  - code
+  - name
+properties:
+  id:
+    type: string
+    example: '1610612738'
+  code:
+    type: string
+    example: 'BOS'
+  name:
+    type: string
+    example: 'Boston Celtics'
+  city:
+    type: string
+    example: 'Boston'
+  conference:
+    type: string
+    example: 'Eastern'
+  score:
+    type: integer
+    example: 112
+

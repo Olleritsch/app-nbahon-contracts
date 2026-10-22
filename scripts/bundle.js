@@ -50,3 +50,4 @@ console.log('✅ Folgende Artefakte wurden in dist/ erzeugt:');
 fs.readdirSync(distDir).forEach((file) => {
   console.log(`   - dist/${file}`);
 });
+

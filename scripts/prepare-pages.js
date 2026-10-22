@@ -74,3 +74,4 @@ for (const [src, dest] of copyTargets) {
 }
 
 console.log('✅ GitHub Pages Artefakte in public/ erfolgreich vorbereitet.');
+

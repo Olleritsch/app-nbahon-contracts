@@ -1,14 +1,9 @@
 type: object
 description: Repräsentiert ein NBA-Team.
 required:
-  - id
   - name
   - abbreviation
 properties:
-  id:
-    type: string
-    description: Global eindeutige Kennung des Teams.
-    example: "1610612738"
   name:
     type: string
     description: Vollständiger Name des Teams.
@@ -21,12 +16,3 @@ properties:
     type: string
     description: Offizielles 3-Buchstaben-Kürzel (TLA) des Teams.
     example: "BOS"
-  conference:
-    type: string
-    description: NBA-Conference des Teams (z. B. Eastern oder Western).
-    example: "Eastern"
-  division:
-    type: string
-    description: NBA-Division des Teams (z. B. Atlantic).
-    example: "Atlantic"
-

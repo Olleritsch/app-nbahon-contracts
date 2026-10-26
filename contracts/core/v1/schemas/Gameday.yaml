@@ -1,0 +1,14 @@
+type: object
+description: Spieltagsdaten mit Liste aller Spiele des Kalendertags.
+required:
+  - date
+  - games
+properties:
+  date:
+    type: string
+    format: date
+    example: '2026-10-21'
+  games:
+    type: array
+    items:
+      $ref: './Game.yaml'

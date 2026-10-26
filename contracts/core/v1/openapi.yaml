@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: nbahon Core BFF API Contracts
-  version: 1.0.0
+  version: 1.1.0
   description: Zentrale Frontend-Facing BFF-Schnittstelle des nbahon-Ökosystems.
   contact:
     name: Oliver (@Olleritsch)
@@ -10,9 +10,9 @@ servers:
     description: Lokale Entwicklung
 tags:
   - name: Core Gamedays
-    description: Aggregierte Spieltagsdaten für Frontend-Clients
+    description: Spieltagsdaten für Frontend-Clients
   - name: Core Games
-    description: Detailansichten und Analysen einzelner Partien
+    description: Detailansichten einzelner Partien
 paths:
   /api/v1/core/gamedays/{date}:
     $ref: './paths/gamedays.yaml'
@@ -20,20 +20,13 @@ paths:
     $ref: './paths/games.yaml'
 components:
   schemas:
-    AggregatedGameday:
-      $ref: './schemas/AggregatedGameday.yaml'
-    AggregatedGame:
-      $ref: './schemas/AggregatedGame.yaml'
-    AggregatedGameView:
-      $ref: './schemas/AggregatedGameView.yaml'
-    TeamOverview:
-      $ref: './schemas/TeamOverview.yaml'
-    ScoreSummary:
-      $ref: './schemas/ScoreSummary.yaml'
-    MatchupOverview:
-      $ref: './schemas/MatchupOverview.yaml'
-    GameAnalysis:
-      $ref: './schemas/GameAnalysis.yaml'
+    Gameday:
+      $ref: './schemas/Gameday.yaml'
+    Game:
+      $ref: './schemas/Game.yaml'
+    Team:
+      $ref: './schemas/Team.yaml'
+    Score:
+      $ref: './schemas/Score.yaml'
     ProblemDetail:
       $ref: './schemas/ProblemDetail.yaml'
-

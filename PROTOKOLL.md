@@ -7,7 +7,7 @@
 **Aktueller Git-Branch:** `main`  
 **Registrierte APIs:**
 - `nbahon-natstat-connector` (Version: `1.3.0`)
-- `nbahon-core` (Version: `1.0.0`)
+- `nbahon-core` (Version: `1.1.0`)
 
 ---
 
@@ -51,13 +51,10 @@ contracts/
         │   ├── gamedays.yaml            (GET /api/v1/core/gamedays/{date})
         │   └── games.yaml               (GET /api/v1/core/games/{date}/{matchup})
         └── schemas/
-            ├── AggregatedGameday.yaml
-            ├── AggregatedGame.yaml
-            ├── AggregatedGameView.yaml
-            ├── TeamOverview.yaml
-            ├── ScoreSummary.yaml
-            ├── MatchupOverview.yaml
-            ├── GameAnalysis.yaml
+            ├── Gameday.yaml
+            ├── Game.yaml
+            ├── Team.yaml
+            ├── Score.yaml
             └── ProblemDetail.yaml
 ```
 
@@ -79,7 +76,7 @@ flowchart TD
     end
 
     subgraph DistOutput["dist/ (Release Artefakte)"]
-        DistCore["nbahon-core-v1.0.0.(yaml|json)<br/>nbahon-core-latest.(yaml|json)"]
+        DistCore["nbahon-core-v1.1.0.(yaml|json)<br/>nbahon-core-latest.(yaml|json)"]
         DistNat["nbahon-natstat-connector-v1.3.0.(yaml|json)<br/>nbahon-natstat-connector-latest.(yaml|json)"]
     end
 
@@ -99,7 +96,7 @@ flowchart TD
 
 ### A. Bundling (`scripts/bundle.js`)
 Liest alle registrierten APIs aus, ermittelt dynamisch die SemVer-Version und erzeugt in `dist/`:
-- `nbahon-core-v1.0.0.yaml` & `.json`
+- `nbahon-core-v1.1.0.yaml` & `.json`
 - `nbahon-core-latest.yaml` & `.json`
 - `nbahon-natstat-connector-v1.3.0.yaml` & `.json`
 - `nbahon-natstat-connector-latest.yaml` & `.json`
@@ -111,7 +108,7 @@ Erzeugt die statische Webpräsenz in `public/`:
   - Core BFF: `https://olleritsch.github.io/app-nbahon-contracts/docs/core/`
   - NatStat Connector: `https://olleritsch.github.io/app-nbahon-contracts/docs/natstat-connector/`
 - **Direkt-Download & Codegen-URLs (SemVer Pinned & Latest):**
-  - Core v1.0.0: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-v1.0.0.yaml`
+  - Core v1.1.0: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-v1.1.0.yaml`
   - Core Latest: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-latest.yaml`
   - NatStat Connector v1.3.0: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-natstat-connector-v1.3.0.yaml`
   - NatStat Connector Latest: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-natstat-connector-latest.yaml`
@@ -167,5 +164,5 @@ npm run preview:natstat   # NatStat Connector API
      ```
    - Im `app-nbahon-core` Repo die Core-Spezifikation für DTO-/Interface-Generierung einbinden:
      ```xml
-     <inputSpec>https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-v1.0.0.yaml</inputSpec>
+     <inputSpec>https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-v1.1.0.yaml</inputSpec>
      ```

@@ -1,0 +1,18 @@
+type: object
+description: Repräsentiert ein NBA-Team in der Core-Ansicht.
+required:
+  - code
+  - name
+properties:
+  code:
+    type: string
+    description: 3-Buchstaben-Kürzel (TLA) des Teams.
+    example: 'BOS'
+  name:
+    type: string
+    description: Vollständiger Name des Teams.
+    example: 'Boston Celtics'
+  city:
+    type: string
+    description: Stadt oder Region des Teams.
+    example: 'Boston'

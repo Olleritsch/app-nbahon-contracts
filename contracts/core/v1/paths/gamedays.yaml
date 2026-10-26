@@ -1,7 +1,7 @@
 get:
-  summary: Aggregierten Spieltag abrufen
-  description: Liefert eine Liste aller aggregierten NBA-Spiele für das angegebene Datum (ISO-8601) inkl. Spieltagsmetadaten.
-  operationId: getAggregatedGameday
+  summary: Spieltag abrufen
+  description: Liefert eine Liste aller NBA-Spiele für das angegebene Datum (ISO-8601).
+  operationId: getGameday
   tags:
     - Core Gamedays
   parameters:
@@ -15,11 +15,11 @@ get:
         example: '2026-10-21'
   responses:
     '200':
-      description: Aggregierter Spieltag erfolgreich ermittelt.
+      description: Spieltag erfolgreich ermittelt.
       content:
         application/json:
           schema:
-            $ref: '../schemas/AggregatedGameday.yaml'
+            $ref: '../schemas/Gameday.yaml'
     '400':
       description: Ungültiges Datumsformat oder ungültige Anfrage.
       content:
@@ -38,4 +38,3 @@ get:
         application/problem+json:
           schema:
             $ref: '../schemas/ProblemDetail.yaml'
-

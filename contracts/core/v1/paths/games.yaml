@@ -1,7 +1,7 @@
 get:
-  summary: Aggregiertes Spiel mit Detailanalyse abrufen
-  description: Liefert die aggregierte Vollansicht einer Partie inkl. Boxscore und Analyse-Slots.
-  operationId: getAggregatedGameView
+  summary: Spiel abrufen
+  description: Liefert die Spieldetails einer Partie inkl. Boxscore.
+  operationId: getGame
   tags:
     - Core Games
   parameters:
@@ -26,7 +26,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../schemas/AggregatedGameView.yaml'
+            $ref: '../schemas/Game.yaml'
     '400':
       description: Ungültige Parameter.
       content:
@@ -51,4 +51,3 @@ get:
         application/problem+json:
           schema:
             $ref: '../schemas/ProblemDetail.yaml'
-

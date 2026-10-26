@@ -1,17 +1,10 @@
 type: object
+description: Spieldaten einer NBA-Partie.
 required:
-  - gameId
-  - matchup
   - status
   - homeTeam
   - awayTeam
 properties:
-  gameId:
-    type: string
-    example: '401584701'
-  matchup:
-    type: string
-    example: 'BOS-MIA'
   status:
     type: string
     enum: [SCHEDULED, IN_PROGRESS, FINAL, POSTPONED, CANCELLED]
@@ -21,14 +14,14 @@ properties:
     format: date-time
     example: '2026-10-21T19:30:00Z'
   homeTeam:
-    $ref: './TeamOverview.yaml'
+    $ref: './Team.yaml'
   awayTeam:
-    $ref: './TeamOverview.yaml'
+    $ref: './Team.yaml'
   score:
-    $ref: './ScoreSummary.yaml'
+    $ref: './Score.yaml'
   venue:
     type: string
     example: 'TD Garden, Boston'
-  matchupOverview:
-    $ref: './MatchupOverview.yaml'
-
+  boxscore:
+    type: object
+    description: Detaillierte Boxscore-Daten der Partie.

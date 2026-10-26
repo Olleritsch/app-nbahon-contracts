@@ -1,4 +1,5 @@
 type: object
+description: Punktestand einer NBA-Partie.
 required:
   - homeScore
   - awayScore
@@ -9,10 +10,3 @@ properties:
   awayScore:
     type: integer
     example: 104
-  currentPeriod:
-    type: integer
-    example: 4
-  periodTimeRemaining:
-    type: string
-    example: '00:00'
-

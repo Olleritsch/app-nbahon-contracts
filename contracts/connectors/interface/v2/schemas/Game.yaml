@@ -1,5 +1,5 @@
 type: object
-description: Repräsentiert ein vollständiges NBA-Spiel mit Teams, Spielstätte, Status und ggf. Punktestand.
+description: Repräsentiert ein vollständiges NBA-Spiel mit Teams, Spielstätte, Status, Score sowie optionalem Boxscore und PlayByPlay.
 required:
   - gameDate
   - status
@@ -19,8 +19,6 @@ properties:
     format: date-time
     description: Geplanter Anwurf (Tip-off) mit Zeitzonen-Offset. Null falls noch unbestimmt (TBD).
     example: "2026-04-12T19:30:00-04:00"
-  timeZone:
-    $ref: "./TimeZoneInfo.yaml"
   status:
     $ref: "./GameStatus.yaml"
   homeTeam:
@@ -31,3 +29,7 @@ properties:
     $ref: "./Venue.yaml"
   score:
     $ref: "./Score.yaml"
+  boxscore:
+    $ref: "./Boxscore.yaml"
+  playbyplay:
+    $ref: "./PlayByPlay.yaml"

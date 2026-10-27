@@ -17,11 +17,11 @@ const APIs = [
     docsSubdir: 'core'
   },
   {
-    id: 'nbahon-natstat-connector',
-    name: 'NatStat Connector API',
-    description: 'Downstream-Schnittstelle zur Bereitstellung standardisierter NBA-Rohdaten.',
-    entry: path.join(rootDir, 'contracts', 'connectors', 'natstat', 'v1', 'openapi.yaml'),
-    docsSubdir: 'natstat-connector'
+    id: 'nbahon-connector-interface',
+    name: 'Connector Interface (SPI) API',
+    description: 'Standardisiertes Downstream-Interface für alle Daten-Konnektoren zur Bereitstellung einheitlicher NBA-Rohdaten.',
+    entry: path.join(rootDir, 'contracts', 'connectors', 'interface', 'v2', 'openapi.yaml'),
+    docsSubdir: 'connector-interface'
   }
 ];
 

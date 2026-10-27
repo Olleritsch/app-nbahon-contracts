@@ -25,9 +25,6 @@ get:
     '200':
       description: Erfolgreiche Rückgabe des Boxscores.
       content:
-        application/vnd.nbahon.v1+json:
-          schema:
-            $ref: '../schemas/Boxscore.yaml'
         application/json:
           schema:
             $ref: '../schemas/Boxscore.yaml'

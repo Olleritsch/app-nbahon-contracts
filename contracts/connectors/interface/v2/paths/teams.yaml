@@ -18,11 +18,6 @@ get:
     '200':
       description: Erfolgreiche Rückgabe der Teams.
       content:
-        application/vnd.nbahon.v1+json:
-          schema:
-            type: array
-            items:
-              $ref: '../schemas/Team.yaml'
         application/json:
           schema:
             type: array

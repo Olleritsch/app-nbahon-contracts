@@ -1,0 +1,9 @@
+type: object
+description: Chronologische Play-by-Play Ereignisdaten einer Partie.
+properties:
+  events:
+    type: array
+    description: Liste aller Spielereignisse (wird in künftigen Versionen detailliert ausdefiniert).
+    items:
+      type: object
+

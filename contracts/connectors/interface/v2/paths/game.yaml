@@ -1,6 +1,6 @@
 get:
-  summary: Spieldetails für ein bestimmtes Matchup abrufen
-  description: Liefert Metadaten, Spielstatus, Scores und Boxscore-Zusammenfassung für eine Paarung (z.B. DET@MIA) an einem bestimmten Spieltag.
+  summary: Spieldaten für ein bestimmtes Matchup abrufen
+  description: Liefert Metadaten, Spielstatus, Scores und optionale Boxscore-/PlayByPlay-Daten für eine Paarung (z.B. DET@MIA) an einem bestimmten Spieltag.
   operationId: getGameByMatchup
   tags:
     - Games
@@ -23,14 +23,11 @@ get:
         example: "DET@MIA"
   responses:
     '200':
-      description: Erfolgreiche Rückgabe der Spieldetails.
+      description: Erfolgreiche Rückgabe der Spieldaten.
       content:
-        application/vnd.nbahon.v1+json:
-          schema:
-            $ref: '../schemas/GameDetails.yaml'
         application/json:
           schema:
-            $ref: '../schemas/GameDetails.yaml'
+            $ref: '../schemas/Game.yaml'
     '400':
       description: Ungültiges Datums- oder Matchup-Format (ProblemDetail RFC 9457).
       content:
@@ -49,3 +46,4 @@ get:
         application/problem+json:
           schema:
             $ref: '../schemas/ProblemDetail.yaml'
+

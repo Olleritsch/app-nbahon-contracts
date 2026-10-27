@@ -35,22 +35,20 @@ jobs:
       - name: Check for Breaking Changes with oasdiff
         id: check-breaking
         run: |
-          # 1. NatStat Connector Breaking Change Check
-          NATSTAT_BASE=""
-          if [ -f "main-branch/contracts/connectors/natstat/v1/openapi.yaml" ]; then
-            NATSTAT_BASE="main-branch/contracts/connectors/natstat/v1/openapi.yaml"
-          elif [ -f "main-branch/contracts/v1/openapi.yaml" ]; then
-            NATSTAT_BASE="main-branch/contracts/v1/openapi.yaml"
+          # 1. Connector Interface Breaking Change Check (nur prüfen, wenn base ebenfalls v2 ist)
+          CONNECTOR_BASE=""
+          if [ -f "main-branch/contracts/connectors/interface/v2/openapi.yaml" ]; then
+            CONNECTOR_BASE="main-branch/contracts/connectors/interface/v2/openapi.yaml"
           fi
 
-          if [ -n "$NATSTAT_BASE" ] && [ -f "contracts/connectors/natstat/v1/openapi.yaml" ]; then
-            echo "Checking NatStat Connector against base ($NATSTAT_BASE)..."
-            npx @redocly/cli bundle "$NATSTAT_BASE" -o dist/natstat-base.yaml
-            npx @redocly/cli bundle contracts/connectors/natstat/v1/openapi.yaml -o dist/natstat-revision.yaml
-            docker run --rm -v $(pwd):/work:ro tufin/oasdiff -base /work/dist/natstat-base.yaml -revision /work/dist/natstat-revision.yaml -breaking -fail-on-diff
+          if [ -n "$CONNECTOR_BASE" ] && [ -f "contracts/connectors/interface/v2/openapi.yaml" ]; then
+            echo "Checking Connector Interface against base ($CONNECTOR_BASE)..."
+            npx @redocly/cli bundle "$CONNECTOR_BASE" -o dist/connector-base.yaml
+            npx @redocly/cli bundle contracts/connectors/interface/v2/openapi.yaml -o dist/connector-revision.yaml
+            docker run --rm -v $(pwd):/work:ro tufin/oasdiff -base /work/dist/connector-base.yaml -revision /work/dist/connector-revision.yaml -breaking -fail-on-diff
           fi
 
-          # 2. Core BFF Breaking Change Check (falls bereits auf main vorhanden)
+          # 2. Core BFF Breaking Change Check (falls auf main vorhanden)
           if [ -f "main-branch/contracts/core/v1/openapi.yaml" ] && [ -f "contracts/core/v1/openapi.yaml" ]; then
             echo "Checking Core BFF against base..."
             npx @redocly/cli bundle main-branch/contracts/core/v1/openapi.yaml -o dist/core-base.yaml

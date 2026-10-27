@@ -1,0 +1,27 @@
+type: object
+description: Repräsentiert einen NBA-Spieltag mit Metadaten und Liste aller Partien.
+required:
+  - date
+  - metadata
+  - games
+properties:
+  date:
+    type: string
+    format: date
+    example: "2026-04-12"
+  metadata:
+    type: object
+    description: Technische Metadaten zur Datenabfrage des Spieltags.
+    required:
+      - sourceUrl
+    properties:
+      sourceUrl:
+        type: string
+        description: Die vom Konnektor bei der Quell-API aufgerufene URL.
+        example: "https://api.natstat.com/v1/nba/gameday/2026-04-12"
+  games:
+    type: array
+    description: Liste aller NBA-Partien an diesem Spieltag.
+    items:
+      $ref: './Game.yaml'
+

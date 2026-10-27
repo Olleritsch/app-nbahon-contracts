@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
-  title: nbahon NatStat Connector API Contracts
-  version: 1.3.0
-  description: Downstream-Schnittstellenverträge für den NatStat-Connector des nbahon-Ökosystems.
+  title: nbahon Connector Interface API Contracts
+  version: 2.0.0
+  description: Standardisiertes Downstream-Connector-Interface (SPI) des nbahon-Ökosystems. Jeder Konnektor implementiert dieses Interface als Anti-Corruption Layer.
   contact:
     name: Oliver (@Olleritsch)
 servers:
@@ -13,22 +13,26 @@ tags:
   - name: Gamedays
     description: Endpunkte zur Abfrage von NBA-Spieltagen und Partien
   - name: Games
-    description: Endpunkte zur Abfrage von Spieldetails und Boxscores
+    description: Endpunkte zur Abfrage von Spieldetails, Boxscores und Play-by-Play-Daten
   - name: Teams
     description: Endpunkte zur Abfrage von NBA-Teams
 
 paths:
-  /api/gamedays/{date}/games:
-    $ref: './paths/gamedays.yaml'
+  /api/gamedays/{date}:
+    $ref: './paths/gameday.yaml'
   /api/gamedays/{date}/games/{matchup}:
-    $ref: './paths/game-details.yaml'
+    $ref: './paths/game.yaml'
   /api/gamedays/{date}/games/{matchup}/boxscore:
     $ref: './paths/boxscore.yaml'
+  /api/gamedays/{date}/games/{matchup}/playbyplay:
+    $ref: './paths/playbyplay.yaml'
   /api/teams:
     $ref: './paths/teams.yaml'
 
 components:
   schemas:
+    Gameday:
+      $ref: './schemas/Gameday.yaml'
     Game:
       $ref: './schemas/Game.yaml'
     GameStatus:
@@ -37,8 +41,6 @@ components:
       $ref: './schemas/Team.yaml'
     Venue:
       $ref: './schemas/Venue.yaml'
-    TimeZoneInfo:
-      $ref: './schemas/TimeZoneInfo.yaml'
     Score:
       $ref: './schemas/Score.yaml'
     ProblemDetail:
@@ -49,6 +51,5 @@ components:
       $ref: './schemas/PlayerBoxscore.yaml'
     Boxscore:
       $ref: './schemas/Boxscore.yaml'
-    GameDetails:
-      $ref: './schemas/GameDetails.yaml'
-
+    PlayByPlay:
+      $ref: './schemas/PlayByPlay.yaml'

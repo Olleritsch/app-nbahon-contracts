@@ -2,11 +2,11 @@
 
 > **Zweck dieses Dokuments:** Lückenlose Dokumentation des aktuellen Entwicklungsstands, der Multi-API-Architektur, der getroffenen Entscheidungen und der nächsten Schritte vor einem Neustart des Devcontainers/der Entwicklungsumgebung.
 
-**Stand:** 26. Oktober 2026  
+**Stand:** 27. Oktober 2026  
 **Architektur:** Multi-API Contract Hub (OpenAPI 3.1)  
 **Aktueller Git-Branch:** `main`  
 **Registrierte APIs:**
-- `nbahon-natstat-connector` (Version: `1.3.0`)
+- `nbahon-connector-interface` (Version: `2.0.0`)
 - `nbahon-core` (Version: `1.1.0`)
 
 ---
@@ -14,7 +14,10 @@
 ## 1. Projektübersicht
 
 `app-nbahon-contracts` ist die **Single Source of Truth** für alle Schnittstellenverträge im nbahon-Ökosystem (OpenAPI 3.1).
-Das Repository beherbergt als Multi-API Hub sowohl Upstream-BFF-Verträge (`nbahon-core`) als auch Downstream-Konnektor-Verträge (`nbahon-natstat-connector`).
+Das Repository beherbergt als Multi-API Hub:
+- Das standardisierte, anbieterunabhängige **Downstream-Connector-Interface (`nbahon-connector-interface`)**, das als Service Provider Interface (SPI) von allen Datenkonnektoren (NatStat, ESPN, NBA.com usw.) als Anti-Corruption Layer (ACL) implementiert wird.
+- Den **Upstream-BFF-Vertrag (`nbahon-core`)** für Frontend-Clients und Orchestrierung.
+
 Alle Verträge werden modular gepflegt (`paths/` und `schemas/`), per Redocly gebündelt und automatisiert über ein modernes GitHub Pages Portal sowie GitHub Releases bereitgestellt.
 
 ---
@@ -24,28 +27,29 @@ Alle Verträge werden modular gepflegt (`paths/` und `schemas/`), per Redocly ge
 ```text
 contracts/
 ├── connectors/
-│   └── natstat/
-│       └── v1/                          <-- NatStat Downstream Connector (v1.3.0)
+│   └── interface/
+│       └── v2/                          <-- Standard Connector Interface (SPI) (v2.0.0)
 │           ├── openapi.yaml
 │           ├── paths/
-│           │   ├── gamedays.yaml        (GET /api/gamedays/{date}/games)
-│           │   ├── game-details.yaml    (GET /api/gamedays/{date}/games/{matchup})
+│           │   ├── gameday.yaml         (GET /api/gamedays/{date})
+│           │   ├── game.yaml            (GET /api/gamedays/{date}/games/{matchup})
 │           │   ├── boxscore.yaml        (GET /api/gamedays/{date}/games/{matchup}/boxscore)
+│           │   ├── playbyplay.yaml      (GET /api/gamedays/{date}/games/{matchup}/playbyplay)
 │           │   └── teams.yaml           (GET /api/teams)
 │           └── schemas/
+│               ├── Gameday.yaml
 │               ├── Game.yaml
-│               ├── GameDetails.yaml
+│               ├── PlayByPlay.yaml
 │               ├── Boxscore.yaml
 │               ├── TeamGameStats.yaml
 │               ├── PlayerBoxscore.yaml
 │               ├── Team.yaml
 │               ├── Score.yaml
 │               ├── Venue.yaml
-│               ├── TimeZoneInfo.yaml
 │               ├── GameStatus.yaml
 │               └── ProblemDetail.yaml
 └── core/
-    └── v1/                              <-- Core Orchestrator & BFF API (v1.0.0)
+    └── v1/                              <-- Core Orchestrator & BFF API (v1.1.0)
         ├── openapi.yaml
         ├── paths/
         │   ├── gamedays.yaml            (GET /api/v1/core/gamedays/{date})
@@ -66,7 +70,7 @@ contracts/
 flowchart TD
     subgraph Repositories["contracts/"]
         CoreSpec["contracts/core/v1/openapi.yaml"]
-        NatstatSpec["contracts/connectors/natstat/v1/openapi.yaml"]
+        ConnectorSpec["contracts/connectors/interface/v2/openapi.yaml"]
     end
 
     subgraph BuildPipeline["Build & Distribution Pipeline"]
@@ -77,13 +81,13 @@ flowchart TD
 
     subgraph DistOutput["dist/ (Release Artefakte)"]
         DistCore["nbahon-core-v1.1.0.(yaml|json)<br/>nbahon-core-latest.(yaml|json)"]
-        DistNat["nbahon-natstat-connector-v1.3.0.(yaml|json)<br/>nbahon-natstat-connector-latest.(yaml|json)"]
+        DistConnector["nbahon-connector-interface-v2.0.0.(yaml|json)<br/>nbahon-connector-interface-latest.(yaml|json)"]
     end
 
     subgraph PagesOutput["public/ (GitHub Pages Portal)"]
         IndexHtml["index.html (API Registry Portal)"]
         DocsCore["docs/core/index.html (Redoc)"]
-        DocsNat["docs/natstat-connector/index.html (Redoc)"]
+        DocsConnector["docs/connector-interface/index.html (Redoc)"]
         ContractsDown["contracts/*.yaml & *.json"]
     end
 
@@ -98,20 +102,20 @@ flowchart TD
 Liest alle registrierten APIs aus, ermittelt dynamisch die SemVer-Version und erzeugt in `dist/`:
 - `nbahon-core-v1.1.0.yaml` & `.json`
 - `nbahon-core-latest.yaml` & `.json`
-- `nbahon-natstat-connector-v1.3.0.yaml` & `.json`
-- `nbahon-natstat-connector-latest.yaml` & `.json`
+- `nbahon-connector-interface-v2.0.0.yaml` & `.json`
+- `nbahon-connector-interface-latest.yaml` & `.json`
 
 ### B. GitHub Pages Portal (`scripts/prepare-pages.js`)
 Erzeugt die statische Webpräsenz in `public/`:
 - **Portal Landing Page:** `https://olleritsch.github.io/app-nbahon-contracts/`
 - **Interaktive Redoc Dokumentationen:**
   - Core BFF: `https://olleritsch.github.io/app-nbahon-contracts/docs/core/`
-  - NatStat Connector: `https://olleritsch.github.io/app-nbahon-contracts/docs/natstat-connector/`
+  - Connector Interface: `https://olleritsch.github.io/app-nbahon-contracts/docs/connector-interface/`
 - **Direkt-Download & Codegen-URLs (SemVer Pinned & Latest):**
   - Core v1.1.0: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-v1.1.0.yaml`
   - Core Latest: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-core-latest.yaml`
-  - NatStat Connector v1.3.0: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-natstat-connector-v1.3.0.yaml`
-  - NatStat Connector Latest: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-natstat-connector-latest.yaml`
+  - Connector Interface v2.0.0: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-connector-interface-v2.0.0.yaml`
+  - Connector Interface Latest: `https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-connector-interface-latest.yaml`
 
 ---
 
@@ -149,8 +153,8 @@ npm test
 npm run build:pages
 
 # 6. Live-Vorschau im Browser starten
-npm run preview:core      # Core BFF API
-npm run preview:natstat   # NatStat Connector API
+npm run preview:core          # Core BFF API
+npm run preview:connector     # Connector Interface (SPI) API
 ```
 
 ---
@@ -158,9 +162,9 @@ npm run preview:natstat   # NatStat Connector API
 ## 6. Nächste Schritte
 
 1. **Konsumierende Services anbinden bzw. umstellen:**
-   - In `app-nbahon-natstat-connector` in der `pom.xml` die URL auf die neue saubere URL umstellen:
+   - In `app-nbahon-natstat-connector` in der `pom.xml` die URL auf die neue Schnittstelle umstellen:
      ```xml
-     <inputSpec>https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-natstat-connector-v1.3.0.yaml</inputSpec>
+     <inputSpec>https://olleritsch.github.io/app-nbahon-contracts/contracts/nbahon-connector-interface-v2.0.0.yaml</inputSpec>
      ```
    - Im `app-nbahon-core` Repo die Core-Spezifikation für DTO-/Interface-Generierung einbinden:
      ```xml

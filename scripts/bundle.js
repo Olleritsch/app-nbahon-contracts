@@ -13,9 +13,9 @@ fs.mkdirSync(distDir, { recursive: true });
 // Registry aller Verträge
 const APIs = [
   {
-    id: 'nbahon-natstat-connector',
-    title: 'NatStat Connector API',
-    entry: path.join(rootDir, 'contracts', 'connectors', 'natstat', 'v1', 'openapi.yaml')
+    id: 'nbahon-connector-interface',
+    title: 'Connector Interface (SPI) API',
+    entry: path.join(rootDir, 'contracts', 'connectors', 'interface', 'v2', 'openapi.yaml')
   },
   {
     id: 'nbahon-core',

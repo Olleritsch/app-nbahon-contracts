@@ -1,0 +1,32 @@
+post:
+  summary: Spiel auf spielentscheidende Situationen (Game Winning Chances) untersuchen
+  description: Analysiert das übergebene Play-by-Play einer Partie auf spielentscheidende Schlussphasen und berechnet daraus einen Spannungs-Score sowie ein Rating.
+  operationId: evaluateGameWinningChance
+  tags:
+    - Evaluations
+  requestBody:
+    required: true
+    description: Team-Kontext und vollständiges Play-by-Play des zu untersuchenden Spiels.
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/GameWinningChanceEvaluationRequest.yaml'
+  responses:
+    '200':
+      description: Erfolgreiche Auswertung der GameWinningChanceEvaluation.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/GameWinningChanceEvaluation.yaml'
+    '400':
+      description: Ungültige oder unvollständige Eingabedaten im Request-Body (ProblemDetail RFC 9457).
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../../../connectors/interface/v2/schemas/ProblemDetail.yaml'
+    '500':
+      description: Unerwarteter interner Serverfehler (ProblemDetail RFC 9457).
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../../../connectors/interface/v2/schemas/ProblemDetail.yaml'

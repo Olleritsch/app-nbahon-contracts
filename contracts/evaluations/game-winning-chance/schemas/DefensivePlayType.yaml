@@ -1,0 +1,8 @@
+type: string
+description: Art der Defensivaktion bei diesem Spielzug.
+enum:
+  - STEAL
+  - BLOCK
+  - FOUL
+  - GOALTENDING
+example: BLOCK

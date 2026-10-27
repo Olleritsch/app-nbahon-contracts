@@ -1,0 +1,13 @@
+type: object
+description: Eingabedaten für die Durchführung der GameWinningChanceEvaluation eines Spiels.
+required:
+  - homeTeam
+  - awayTeam
+  - playByPlay
+properties:
+  homeTeam:
+    $ref: '../../../connectors/interface/v2/schemas/Team.yaml'
+  awayTeam:
+    $ref: '../../../connectors/interface/v2/schemas/Team.yaml'
+  playByPlay:
+    $ref: '../../../connectors/interface/v2/schemas/PlayByPlay.yaml'

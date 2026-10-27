@@ -22,6 +22,13 @@ const APIs = [
     description: 'Standardisiertes Downstream-Interface für alle Daten-Konnektoren zur Bereitstellung einheitlicher NBA-Rohdaten.',
     entry: path.join(rootDir, 'contracts', 'connectors', 'interface', 'v2', 'openapi.yaml'),
     docsSubdir: 'connector-interface'
+  },
+  {
+    id: 'nbahon-evaluation-game-winning-chance',
+    name: 'GameWinningChance Evaluation API',
+    description: 'Evaluation-Microservice zur Ermittlung spielentscheidender Situationen (Game Winning Chances) und Berechnung des Spannungs-Ratings.',
+    entry: path.join(rootDir, 'contracts', 'evaluations', 'game-winning-chance', 'openapi.yaml'),
+    docsSubdir: 'evaluation-game-winning-chance'
   }
 ];
 

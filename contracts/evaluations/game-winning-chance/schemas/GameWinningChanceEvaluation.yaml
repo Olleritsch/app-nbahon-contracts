@@ -1,0 +1,24 @@
+type: object
+description: Ergebnis der GameWinningChanceEvaluation eines Spiels inklusive Spannungs-Score, Rating und erkannten spielentscheidenden Phasen.
+required:
+  - score
+  - rating
+  - gameWinningChances
+properties:
+  score:
+    type: integer
+    minimum: 0
+    maximum: 100
+    description: Berechneter Spannungswert dieser Evaluation auf einer Skala von 0 bis 100.
+    example: 88
+  rating:
+    $ref: './EvaluationRating.yaml'
+  summary:
+    type: string
+    description: Übergreifende Zusammenfassung der Evaluation auf Spielebene.
+    example: "High-drama finish featuring two game-decisive plays in the final 5 seconds of regulation."
+  gameWinningChances:
+    type: array
+    description: Alle ermittelten spielentscheidenden Phasen des Spiels (chronologisch nach Periode).
+    items:
+      $ref: './GameWinningChance.yaml'

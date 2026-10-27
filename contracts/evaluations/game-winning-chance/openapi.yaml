@@ -1,0 +1,47 @@
+openapi: 3.1.0
+info:
+  title: nbahon GameWinningChance Evaluation API Contract
+  version: 1.0.0
+  description: Schnittstellenspezifikation des Evaluation-Microservice zur Ermittlung spielentscheidender Situationen (Game Winning Chances) und Berechnung des Spannungs-Ratings.
+  contact:
+    name: Oliver (@Olleritsch)
+servers:
+  - url: http://localhost:8080
+    description: Lokale Entwicklung
+
+tags:
+  - name: Evaluations
+    description: Endpunkte zur Auswertung von Spieldaten hinsichtlich spezifischer Spannungsmerkmale
+
+paths:
+  /api/evaluations/game-winning-chance:
+    $ref: './paths/evaluate.yaml'
+
+components:
+  schemas:
+    GameWinningChanceEvaluationRequest:
+      $ref: './schemas/GameWinningChanceEvaluationRequest.yaml'
+    GameWinningChanceEvaluation:
+      $ref: './schemas/GameWinningChanceEvaluation.yaml'
+    EvaluationRating:
+      $ref: './schemas/EvaluationRating.yaml'
+    GameWinningChance:
+      $ref: './schemas/GameWinningChance.yaml'
+    GameWinningChancePlay:
+      $ref: './schemas/GameWinningChancePlay.yaml'
+    GameDecisiveSituation:
+      $ref: './schemas/GameDecisiveSituation.yaml'
+    OffensivePlayType:
+      $ref: './schemas/OffensivePlayType.yaml'
+    OffensivePlayTypeDetail:
+      $ref: './schemas/OffensivePlayTypeDetail.yaml'
+    DefensivePlayType:
+      $ref: './schemas/DefensivePlayType.yaml'
+    Team:
+      $ref: '../../connectors/interface/v2/schemas/Team.yaml'
+    PlayByPlay:
+      $ref: '../../connectors/interface/v2/schemas/PlayByPlay.yaml'
+    PlayByPlayItem:
+      $ref: '../../connectors/interface/v2/schemas/PlayByPlayItem.yaml'
+    ProblemDetail:
+      $ref: '../../connectors/interface/v2/schemas/ProblemDetail.yaml'

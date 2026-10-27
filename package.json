@@ -9,7 +9,8 @@
     "lint": "spectral lint \"dist/*-latest.yaml\" --ruleset .spectral.yaml",
     "test": "npm run bundle && npm run lint",
     "preview:core": "redocly preview-docs contracts/core/v1/openapi.yaml",
-    "preview:connector": "redocly preview-docs contracts/connectors/interface/v2/openapi.yaml"
+    "preview:connector": "redocly preview-docs contracts/connectors/interface/v2/openapi.yaml",
+    "preview:evaluation": "redocly preview-docs contracts/evaluations/game-winning-chance/openapi.yaml"
   },
   "devDependencies": {
     "@redocly/cli": "^1.34.0",

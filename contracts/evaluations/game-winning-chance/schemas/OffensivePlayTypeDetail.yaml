@@ -1,0 +1,17 @@
+type: string
+description: Spezifische Wurftechnik oder Ausführungsart der Offensivaktion.
+enum:
+  - DUNK
+  - LAYUP
+  - FLOATER
+  - TIP_IN
+  - FADEAWAY
+  - ALLEY_OOP_DUNK
+  - ALLEY_OOP_LAYUP
+  - STEP_BACK
+  - PULLUP
+  - TURNAROUND
+  - HOOK_SHOT
+  - BANK_SHOT
+  - JUMP_SHOT
+example: STEP_BACK

@@ -1,0 +1,9 @@
+type: string
+description: Qualitative Einstufung des Spannungsgrads einer Evaluation.
+enum:
+  - NONE
+  - LOW
+  - MEDIUM
+  - HIGH
+  - LEGENDARY
+example: HIGH

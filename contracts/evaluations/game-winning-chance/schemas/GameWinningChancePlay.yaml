@@ -1,0 +1,66 @@
+type: object
+description: Einzelner potenziell spielentscheidender Spielzug innerhalb einer GameWinningChance.
+required:
+  - playOrder
+  - timeLeftInPeriod
+  - isHomeTeam
+  - homeScore
+  - awayScore
+  - gameDecisiveSituation
+  - offensivePlayType
+  - success
+properties:
+  playOrder:
+    type: integer
+    minimum: 1
+    description: Fortlaufende Sequenznummer (Referenz auf PlayByPlayItem.order).
+    example: 482
+  timeLeftInPeriod:
+    type: number
+    format: float
+    minimum: 0
+    description: Verbleibende Spielzeit im Abschnitt in Sekunden.
+    example: 3.2
+  isHomeTeam:
+    type: boolean
+    description: Gibt an, ob die Aktion vom Heimteam ausgeführt wurde.
+    example: true
+  homeScore:
+    type: integer
+    minimum: 0
+    description: Spielstand des Heimteams zum Zeitpunkt der Aktion.
+    example: 108
+  awayScore:
+    type: integer
+    minimum: 0
+    description: Spielstand des Auswärtsteams zum Zeitpunkt der Aktion.
+    example: 107
+  gameDecisiveSituation:
+    $ref: './GameDecisiveSituation.yaml'
+  offensivePlayType:
+    $ref: './OffensivePlayType.yaml'
+  offensivePlayTypeDetail:
+    $ref: './OffensivePlayTypeDetail.yaml'
+  shotDistanceFeet:
+    type: integer
+    minimum: 0
+    description: Wurfdistanz in Fuß (falls aus der Beschreibung ermittelbar).
+    example: 26
+  defensivePlayType:
+    $ref: './DefensivePlayType.yaml'
+  offensivePlayer:
+    type: string
+    description: Name des ausführenden Offensivspielers.
+    example: "Devin Booker"
+  passiveOffensivePlayer:
+    type: string
+    description: Name des Assistgebers (falls vorhanden).
+    example: "Kevin Durant"
+  defensivePlayer:
+    type: string
+    description: Name des beteiligten Verteidigers (z. B. bei Block, Steal oder Foul).
+    example: "Shai Gilgeous-Alexander"
+  success:
+    type: boolean
+    description: Gibt an, ob die Offensivaktion erfolgreich war (Treffer).
+    example: true

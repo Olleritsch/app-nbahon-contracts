@@ -1,0 +1,12 @@
+type: string
+description: Übergeordneter Typ der Offensivaktion.
+enum:
+  - FREE_THROW
+  - CLOSE_TWO
+  - REGULAR_TWO
+  - LONG_TWO
+  - REGULAR_THREE
+  - LONG_THREE
+  - THREE_FROM_OWN_HALF
+  - TURNOVER
+example: REGULAR_THREE

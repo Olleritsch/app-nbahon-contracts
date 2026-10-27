@@ -1,0 +1,20 @@
+type: object
+description: Spielentscheidende Schlussphase innerhalb einer Spielperiode (z. B. Ende des 4. Viertels oder einer Verlängerung).
+required:
+  - period
+  - plays
+properties:
+  period:
+    type: integer
+    minimum: 4
+    description: Spielabschnitt (4 = 4. Viertel, 5+ = Overtime).
+    example: 4
+  summary:
+    type: string
+    description: Textuelle Zusammenfassung der spielentscheidenden Phase dieser Periode.
+    example: "Devin Booker hits a 26-foot step-back three with 3.2s remaining; final heave misses."
+  plays:
+    type: array
+    description: Chronologische Liste der potenziell spielentscheidenden Aktionen in dieser Periode.
+    items:
+      $ref: './GameWinningChancePlay.yaml'

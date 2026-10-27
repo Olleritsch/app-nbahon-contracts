@@ -1,0 +1,7 @@
+type: string
+description: Beschreibt, über welche möglichen Spielausgänge die Aktion entscheidet.
+enum:
+  - LOSE_OR_OT
+  - LOSE_OR_WIN
+  - OT_OR_WIN
+example: LOSE_OR_WIN

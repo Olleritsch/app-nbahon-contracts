@@ -1,0 +1,61 @@
+type: object
+description: Einzelnes chronologisches Spielereignis im Play-by-Play.
+required:
+  - order
+  - period
+  - timeRemainingInPeriod
+  - description
+  - homeScore
+  - awayScore
+  - isScoringPlay
+properties:
+  order:
+    type: integer
+    minimum: 1
+    description: Fortlaufende Sequenznummer (1-basiert) zur eindeutigen chronologischen Sortierung (insb. bei simultanen Zeitstempeln).
+    example: 1
+  period:
+    type: integer
+    minimum: 1
+    description: Spielabschnitt (1-4 reguläre Viertel, 5+ Overtime).
+    example: 1
+  timeRemainingInPeriod:
+    type: number
+    format: float
+    minimum: 0
+    description: Verbleibende Spielzeit im aktuellen Spielabschnitt in Sekunden.
+    example: 701.0
+  team:
+    type: string
+    nullable: true
+    description: Vollständiger Teamname, zu dem die Aktion gehört (null bei neutralen Aktionen wie Viertelbeginn/Ende).
+    example: "Phoenix Suns"
+  activePlayerName:
+    type: string
+    nullable: true
+    description: Name des primär agierenden Spielers (z. B. Schütze, reboundender Spieler, Turnover-Verursacher).
+    example: "Bradley Beal"
+  passivePlayerName:
+    type: string
+    nullable: true
+    description: Name des sekundär beteiligten Spielers (z. B. Assistgeber, gefoulter Spieler, Steal-Ausführender).
+    example: "Devin Booker"
+  description:
+    type: string
+    description: Vollständige Textbeschreibung des Spielereignisses.
+    example: "Bradley Beal misses 23-foot step back jumpshot"
+  homeScore:
+    type: integer
+    minimum: 0
+    description: Spielstand des Heimteams unmittelbar nach dem Ereignis.
+    example: 2
+  awayScore:
+    type: integer
+    minimum: 0
+    description: Spielstand des Auswärtsteams unmittelbar nach dem Ereignis.
+    example: 0
+  isScoringPlay:
+    type: boolean
+    description: Gibt an, ob durch dieses Ereignis Punkte erzielt wurden.
+    example: false
+

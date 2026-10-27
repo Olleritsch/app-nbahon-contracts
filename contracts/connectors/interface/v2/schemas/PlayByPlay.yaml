@@ -1,9 +1,10 @@
 type: object
 description: Chronologische Play-by-Play Ereignisdaten einer Partie.
+required:
+  - events
 properties:
   events:
     type: array
-    description: Liste aller Spielereignisse (wird in künftigen Versionen detailliert ausdefiniert).
+    description: Liste aller Spielereignisse in chronologischer Reihenfolge.
     items:
-      type: object
-
+      $ref: './PlayByPlayItem.yaml'

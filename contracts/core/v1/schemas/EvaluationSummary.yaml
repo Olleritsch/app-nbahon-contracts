@@ -1,0 +1,18 @@
+type: object
+description: Einheitliche Zusammenfassung eines Evaluation-Ergebnisses mit Score, Rating und Kurzbeschreibung.
+required:
+  - score
+  - rating
+properties:
+  score:
+    type: integer
+    minimum: 0
+    maximum: 100
+    description: Berechneter Spannungswert dieser Evaluation auf einer Skala von 0 bis 100.
+    example: 88
+  rating:
+    $ref: './EvaluationRating.yaml'
+  summary:
+    type: string
+    description: Übergreifende textuelle Zusammenfassung der Evaluation.
+    example: 'High-drama finish featuring two game-decisive plays in the final 5 seconds of regulation.'

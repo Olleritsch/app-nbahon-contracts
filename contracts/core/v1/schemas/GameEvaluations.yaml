@@ -1,0 +1,5 @@
+type: object
+description: Ergebnisse der durchgeführten Spielanalysen verschiedener Evaluation-Microservices.
+properties:
+  gameWinningChance:
+    $ref: './EvaluationSummary.yaml'

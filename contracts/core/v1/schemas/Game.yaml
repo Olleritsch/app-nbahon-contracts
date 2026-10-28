@@ -1,5 +1,5 @@
 type: object
-description: Spieldaten einer NBA-Partie.
+description: Spieldaten einer NBA-Partie inklusive optionalem Boxscore und durchgeführten Evaluationen.
 required:
   - status
   - homeTeam
@@ -25,3 +25,5 @@ properties:
   boxscore:
     type: object
     description: Detaillierte Boxscore-Daten der Partie.
+  evaluations:
+    $ref: './GameEvaluations.yaml'

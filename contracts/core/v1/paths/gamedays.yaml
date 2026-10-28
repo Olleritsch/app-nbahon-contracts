@@ -13,6 +13,13 @@ get:
         type: string
         format: date
         example: '2026-10-21'
+    - name: withEvaluations
+      in: query
+      required: false
+      description: Steuert, ob für die Spiele des Spieltags direkt Evaluationen ausgeführt werden sollen (Standard ist false).
+      schema:
+        type: boolean
+        default: false
   responses:
     '200':
       description: Spieltag erfolgreich ermittelt.

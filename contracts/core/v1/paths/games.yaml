@@ -16,10 +16,18 @@ get:
     - name: matchup
       in: path
       required: true
-      description: Matchup-Identifier (z.B. BOS-MIA).
+      description: Matchup-Identifier im Format AWAY@HOME (z.B. MIA@BOS).
       schema:
         type: string
-        example: 'BOS-MIA'
+        pattern: '^[A-Z]{2,4}@[A-Z]{2,4}$'
+        example: 'MIA@BOS'
+    - name: withEvaluations
+      in: query
+      required: false
+      description: Steuert, ob für das Spiel direkt Evaluationen ausgeführt werden sollen (Standard ist true).
+      schema:
+        type: boolean
+        default: true
   responses:
     '200':
       description: Spieldetails erfolgreich ermittelt.

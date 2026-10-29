@@ -10,6 +10,27 @@ if (fs.existsSync(distDir)) {
 }
 fs.mkdirSync(distDir, { recursive: true });
 
+// Validierung des kanonischen Team-Katalogs
+const teamsJsonPath = path.join(rootDir, 'contracts', 'common', 'nba-teams.json');
+const teamAbbrYamlPath = path.join(rootDir, 'contracts', 'common', 'schemas', 'TeamAbbreviation.yaml');
+
+if (fs.existsSync(teamsJsonPath) && fs.existsSync(teamAbbrYamlPath)) {
+  console.log('🔍 Validiere Konsistenz von nba-teams.json und TeamAbbreviation.yaml...');
+  const teams = JSON.parse(fs.readFileSync(teamsJsonPath, 'utf8'));
+  const teamAbbrYaml = fs.readFileSync(teamAbbrYamlPath, 'utf8');
+  if (teams.length !== 30) {
+    console.error(`❌ nba-teams.json muss exakt 30 Teams enthalten, gefunden: ${teams.length}`);
+    process.exit(1);
+  }
+  teams.forEach(t => {
+    if (!teamAbbrYaml.includes(`- ${t.abbreviation}`)) {
+      console.error(`❌ TeamAbbreviation.yaml fehlt Team: ${t.abbreviation}`);
+      process.exit(1);
+    }
+  });
+  console.log('✅ Team-Katalog konsistent (30 Franchises).\n');
+}
+
 // Registry aller Verträge
 const APIs = [
   {

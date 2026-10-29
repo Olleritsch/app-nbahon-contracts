@@ -1,0 +1,34 @@
+type: string
+description: Kanonisches 3-Buchstaben-Kürzel (TLA) der 30 aktiven NBA-Franchises im nbahon-Ökosystem.
+example: 'BOS'
+enum:
+  - ATL
+  - BOS
+  - BKN
+  - CHA
+  - CHI
+  - CLE
+  - DAL
+  - DEN
+  - DET
+  - GSW
+  - HOU
+  - IND
+  - LAC
+  - LAL
+  - MEM
+  - MIA
+  - MIL
+  - MIN
+  - NOP
+  - NYK
+  - OKC
+  - ORL
+  - PHI
+  - PHX
+  - POR
+  - SAC
+  - SAS
+  - TOR
+  - UTA
+  - WAS

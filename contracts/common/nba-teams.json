@@ -1,0 +1,272 @@
+[
+  {
+    "abbreviation": "ATL",
+    "name": "Atlanta Hawks",
+    "city": "Atlanta",
+    "nickname": "Hawks",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Hawks"]
+  },
+  {
+    "abbreviation": "BOS",
+    "name": "Boston Celtics",
+    "city": "Boston",
+    "nickname": "Celtics",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Celtics"]
+  },
+  {
+    "abbreviation": "BKN",
+    "name": "Brooklyn Nets",
+    "city": "Brooklyn",
+    "nickname": "Nets",
+    "conference": "Eastern",
+    "codeAliases": ["BRK", "NJN"],
+    "nameAliases": ["Nets", "New Jersey Nets"]
+  },
+  {
+    "abbreviation": "CHA",
+    "name": "Charlotte Hornets",
+    "city": "Charlotte",
+    "nickname": "Hornets",
+    "conference": "Eastern",
+    "codeAliases": ["CHH", "CHO"],
+    "nameAliases": ["Hornets", "Charlotte Bobcats"]
+  },
+  {
+    "abbreviation": "CHI",
+    "name": "Chicago Bulls",
+    "city": "Chicago",
+    "nickname": "Bulls",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Bulls"]
+  },
+  {
+    "abbreviation": "CLE",
+    "name": "Cleveland Cavaliers",
+    "city": "Cleveland",
+    "nickname": "Cavaliers",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Cavaliers", "Cavs"]
+  },
+  {
+    "abbreviation": "DAL",
+    "name": "Dallas Mavericks",
+    "city": "Dallas",
+    "nickname": "Mavericks",
+    "conference": "Western",
+    "codeAliases": [],
+    "nameAliases": ["Mavericks", "Mavs"]
+  },
+  {
+    "abbreviation": "DEN",
+    "name": "Denver Nuggets",
+    "city": "Denver",
+    "nickname": "Nuggets",
+    "conference": "Western",
+    "codeAliases": [],
+    "nameAliases": ["Nuggets"]
+  },
+  {
+    "abbreviation": "DET",
+    "name": "Detroit Pistons",
+    "city": "Detroit",
+    "nickname": "Pistons",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Pistons"]
+  },
+  {
+    "abbreviation": "GSW",
+    "name": "Golden State Warriors",
+    "city": "Golden State",
+    "nickname": "Warriors",
+    "conference": "Western",
+    "codeAliases": ["GS"],
+    "nameAliases": ["Warriors", "San Francisco"]
+  },
+  {
+    "abbreviation": "HOU",
+    "name": "Houston Rockets",
+    "city": "Houston",
+    "nickname": "Rockets",
+    "conference": "Western",
+    "codeAliases": [],
+    "nameAliases": ["Rockets"]
+  },
+  {
+    "abbreviation": "IND",
+    "name": "Indiana Pacers",
+    "city": "Indiana",
+    "nickname": "Pacers",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Pacers", "Indianapolis"]
+  },
+  {
+    "abbreviation": "LAC",
+    "name": "Los Angeles Clippers",
+    "city": "Los Angeles",
+    "nickname": "Clippers",
+    "conference": "Western",
+    "codeAliases": [],
+    "nameAliases": ["L.A. Clippers", "LA Clippers", "Clippers"]
+  },
+  {
+    "abbreviation": "LAL",
+    "name": "Los Angeles Lakers",
+    "city": "Los Angeles",
+    "nickname": "Lakers",
+    "conference": "Western",
+    "codeAliases": [],
+    "nameAliases": ["L.A. Lakers", "LA Lakers", "Lakers"]
+  },
+  {
+    "abbreviation": "MEM",
+    "name": "Memphis Grizzlies",
+    "city": "Memphis",
+    "nickname": "Grizzlies",
+    "conference": "Western",
+    "codeAliases": ["VAN"],
+    "nameAliases": ["Grizzlies", "Vancouver Grizzlies"]
+  },
+  {
+    "abbreviation": "MIA",
+    "name": "Miami Heat",
+    "city": "Miami",
+    "nickname": "Heat",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Heat"]
+  },
+  {
+    "abbreviation": "MIL",
+    "name": "Milwaukee Bucks",
+    "city": "Milwaukee",
+    "nickname": "Bucks",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Bucks"]
+  },
+  {
+    "abbreviation": "MIN",
+    "name": "Minnesota Timberwolves",
+    "city": "Minnesota",
+    "nickname": "Timberwolves",
+    "conference": "Western",
+    "codeAliases": [],
+    "nameAliases": ["Timberwolves", "Wolves", "Minneapolis"]
+  },
+  {
+    "abbreviation": "NOP",
+    "name": "New Orleans Pelicans",
+    "city": "New Orleans",
+    "nickname": "Pelicans",
+    "conference": "Western",
+    "codeAliases": ["NOH", "NOK", "NO"],
+    "nameAliases": ["Pelicans", "New Orleans Hornets"]
+  },
+  {
+    "abbreviation": "NYK",
+    "name": "New York Knicks",
+    "city": "New York",
+    "nickname": "Knicks",
+    "conference": "Eastern",
+    "codeAliases": ["NY"],
+    "nameAliases": ["Knicks", "NY Knicks", "Knickerbockers"]
+  },
+  {
+    "abbreviation": "OKC",
+    "name": "Oklahoma City Thunder",
+    "city": "Oklahoma City",
+    "nickname": "Thunder",
+    "conference": "Western",
+    "codeAliases": ["OKT", "SEA"],
+    "nameAliases": ["Thunder", "Seattle SuperSonics", "Sonics"]
+  },
+  {
+    "abbreviation": "ORL",
+    "name": "Orlando Magic",
+    "city": "Orlando",
+    "nickname": "Magic",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Magic"]
+  },
+  {
+    "abbreviation": "PHI",
+    "name": "Philadelphia 76ers",
+    "city": "Philadelphia",
+    "nickname": "76ers",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["76ers", "Sixers", "Philly"]
+  },
+  {
+    "abbreviation": "PHX",
+    "name": "Phoenix Suns",
+    "city": "Phoenix",
+    "nickname": "Suns",
+    "conference": "Western",
+    "codeAliases": ["PHO"],
+    "nameAliases": ["Suns"]
+  },
+  {
+    "abbreviation": "POR",
+    "name": "Portland Trail Blazers",
+    "city": "Portland",
+    "nickname": "Trail Blazers",
+    "conference": "Western",
+    "codeAliases": [],
+    "nameAliases": ["Trail Blazers", "Portland Trailblazers", "Blazers"]
+  },
+  {
+    "abbreviation": "SAC",
+    "name": "Sacramento Kings",
+    "city": "Sacramento",
+    "nickname": "Kings",
+    "conference": "Western",
+    "codeAliases": [],
+    "nameAliases": ["Kings"]
+  },
+  {
+    "abbreviation": "SAS",
+    "name": "San Antonio Spurs",
+    "city": "San Antonio",
+    "nickname": "Spurs",
+    "conference": "Western",
+    "codeAliases": ["SA"],
+    "nameAliases": ["Spurs"]
+  },
+  {
+    "abbreviation": "TOR",
+    "name": "Toronto Raptors",
+    "city": "Toronto",
+    "nickname": "Raptors",
+    "conference": "Eastern",
+    "codeAliases": [],
+    "nameAliases": ["Raptors"]
+  },
+  {
+    "abbreviation": "UTA",
+    "name": "Utah Jazz",
+    "city": "Utah",
+    "nickname": "Jazz",
+    "conference": "Western",
+    "codeAliases": ["UTAH", "UTH"],
+    "nameAliases": ["Jazz", "Salt Lake City"]
+  },
+  {
+    "abbreviation": "WAS",
+    "name": "Washington Wizards",
+    "city": "Washington",
+    "nickname": "Wizards",
+    "conference": "Eastern",
+    "codeAliases": ["WSH"],
+    "nameAliases": ["Wizards"]
+  }
+]

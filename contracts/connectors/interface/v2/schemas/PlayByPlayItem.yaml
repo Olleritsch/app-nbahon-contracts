@@ -30,6 +30,8 @@ properties:
     nullable: true
     description: Vollständiger Teamname, zu dem die Aktion gehört (null bei neutralen Aktionen wie Viertelbeginn/Ende).
     example: "Phoenix Suns"
+  teamAbbreviation:
+    $ref: '../../../../common/schemas/TeamAbbreviation.yaml'
   activePlayerName:
     type: string
     nullable: true
@@ -58,4 +60,3 @@ properties:
     type: boolean
     description: Gibt an, ob durch dieses Ereignis Punkte erzielt wurden.
     example: false
-

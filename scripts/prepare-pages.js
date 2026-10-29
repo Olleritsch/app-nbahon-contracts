@@ -80,7 +80,26 @@ APIs.forEach((api) => {
   renderedApis.push({ ...api, version });
 });
 
-// 3. HTML Landing Page generieren
+// 3. nbahon-teams Maven Modul bauen und in public/maven ablegen
+const javaDir = path.join(rootDir, 'java', 'nbahon-teams');
+const mvnwCmd = process.platform === 'win32' ? 'mvnw.cmd' : './mvnw';
+const mavenDeployDir = path.join(publicDir, 'maven');
+if (fs.existsSync(javaDir)) {
+  console.log('☕ Baue nbahon-teams Maven-Artefakt...');
+  execSync(`"${path.join(javaDir, mvnwCmd)}" clean deploy -DaltDeploymentRepository="pages::file:${mavenDeployDir}"`, {
+    cwd: javaDir,
+    stdio: 'inherit'
+  });
+}
+
+// 4. nba-teams.json in public/contracts/ ablegen
+const teamsJsonSrc = path.join(rootDir, 'contracts', 'common', 'nba-teams.json');
+if (fs.existsSync(teamsJsonSrc)) {
+  fs.copyFileSync(teamsJsonSrc, path.join(contractsDir, 'nbahon-teams-v1.0.0.json'));
+  fs.copyFileSync(teamsJsonSrc, path.join(contractsDir, 'nbahon-teams-latest.json'));
+}
+
+// 5. HTML Landing Page generieren
 const landingHtml = `<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -110,7 +129,7 @@ const landingHtml = `<!DOCTYPE html>
   <div class="container">
     <header>
       <h1>🏀 nbahon API Contract Registry</h1>
-      <p class="subtitle">Zentrales, standardkonformes OpenAPI 3.1 Schnittstellenportal</p>
+      <p class="subtitle">Zentrales, standardkonformes OpenAPI 3.1 Schnittstellenportal & Team-Katalog</p>
     </header>
     <div class="grid">
       ${renderedApis.map(api => `
@@ -131,6 +150,23 @@ const landingHtml = `<!DOCTYPE html>
           </div>
         </div>
       `).join('')}
+
+      <div class="card">
+        <div class="card-header">
+          <h2 style="margin: 0;">nbahon-teams (Java SDK & JSON-Katalog)</h2>
+          <span class="badge">v1.0.0</span>
+        </div>
+        <p style="color: var(--muted);">Kanonischer Katalog aller 30 NBA-Teams mit deterministischem Resolver für Provider-Aliase (z. B. NatStat PHO, BRK, CHH, L.A. Clippers).</p>
+        <div style="margin-top: 1.25rem;">
+          <a class="btn btn-secondary" href="contracts/nbahon-teams-v1.0.0.json" download>⬇️ Teams JSON (v1.0.0)</a>
+          <a class="btn btn-secondary" href="contracts/nbahon-teams-latest.json">🔗 Latest Teams JSON</a>
+        </div>
+        <div class="urls">
+          <strong>Maven Repository (Zero Auth):</strong><br>
+          Repository: <code>https://olleritsch.github.io/app-nbahon-contracts/maven</code><br>
+          Dependency: <code>click.dempster.nbahon:nbahon-teams:1.0.0</code>
+        </div>
+      </div>
     </div>
     <footer>
       nbahon-Ökosystem &bull; Entwickelt von Oliver (@Olleritsch) &bull; Standardkonform nach RFC 9457 & OpenAPI 3.1

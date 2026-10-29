@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: nbahon GameWinningChance Evaluation API Contract
-  version: 1.0.0
+  version: 1.1.0
   description: Schnittstellenspezifikation des Evaluation-Microservice zur Ermittlung spielentscheidender Situationen (Game Winning Chances) und Berechnung des Spannungs-Ratings.
   contact:
     name: Oliver (@Olleritsch)
@@ -39,6 +39,8 @@ components:
       $ref: './schemas/DefensivePlayType.yaml'
     Team:
       $ref: '../../connectors/interface/v2/schemas/Team.yaml'
+    TeamAbbreviation:
+      $ref: '../../common/schemas/TeamAbbreviation.yaml'
     PlayByPlay:
       $ref: '../../connectors/interface/v2/schemas/PlayByPlay.yaml'
     PlayByPlayItem:

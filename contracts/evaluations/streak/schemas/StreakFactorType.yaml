@@ -1,0 +1,10 @@
+type: string
+description: Fachlicher Typ eines erkannten Serien- oder Form-Spannungsfaktors.
+enum:
+  - WIN_STREAK_CLASH
+  - LOSING_STREAK_CLASH
+  - HEAD_TO_HEAD_DOMINANCE
+  - SOLO_STREAK
+  - HOME_ROAD_STREAK
+  - LAST_10_MOMENTUM
+example: WIN_STREAK_CLASH

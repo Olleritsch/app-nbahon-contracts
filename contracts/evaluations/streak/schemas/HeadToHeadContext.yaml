@@ -1,0 +1,40 @@
+type: object
+description: Bilanz und aktive Serie im direkten Vergleich (Head-to-Head) zwischen beiden Teams über die laufende Saison und Vorsaison.
+required:
+  - streakLength
+  - currentSeasonAwayWins
+  - currentSeasonHomeWins
+  - twoSeasonAwayWins
+  - twoSeasonHomeWins
+properties:
+  dominantTeam:
+    type:
+      - string
+      - "null"
+    description: Kanonisches Kürzel des Teams, das die aktuelle H2H-Siegesserie hält (null falls keine Serie vorliegt).
+    example: HOU
+  streakLength:
+    type: integer
+    minimum: 0
+    description: Anzahl der aufeinanderfolgenden Siege im direkten Vergleich über laufende Saison und Vorsaison.
+    example: 5
+  currentSeasonAwayWins:
+    type: integer
+    minimum: 0
+    description: Siege des heutigen Auswärtsteams in direkten Duellen der laufenden Saison.
+    example: 2
+  currentSeasonHomeWins:
+    type: integer
+    minimum: 0
+    description: Siege des heutigen Heimteams in direkten Duellen der laufenden Saison.
+    example: 0
+  twoSeasonAwayWins:
+    type: integer
+    minimum: 0
+    description: Siege des heutigen Auswärtsteams in direkten Duellen über laufende Saison und Vorsaison.
+    example: 5
+  twoSeasonHomeWins:
+    type: integer
+    minimum: 0
+    description: Siege des heutigen Heimteams in direkten Duellen über laufende Saison und Vorsaison.
+    example: 0

@@ -1,0 +1,33 @@
+type: object
+description: Eingabedaten für die Durchführung der StreakEvaluation eines Spiels vor Tip-Off.
+required:
+  - gameDate
+  - homeTeam
+  - awayTeam
+  - homeTeamSeasonGames
+  - awayTeamSeasonGames
+properties:
+  gameDate:
+    type: string
+    format: date
+    description: Kalendertag des zu bewertenden Spiels im ISO-8601 Format (YYYY-MM-DD).
+    example: '2026-11-13'
+  homeTeam:
+    $ref: '../../../connectors/interface/v2/schemas/Team.yaml'
+  awayTeam:
+    $ref: '../../../connectors/interface/v2/schemas/Team.yaml'
+  homeTeamSeasonGames:
+    type: array
+    description: Alle bisherigen Saisonspiele des Heimteams in der laufenden Saison.
+    items:
+      $ref: '../../../connectors/interface/v2/schemas/Game.yaml'
+  awayTeamSeasonGames:
+    type: array
+    description: Alle bisherigen Saisonspiele des Auswärtsteams in der laufenden Saison.
+    items:
+      $ref: '../../../connectors/interface/v2/schemas/Game.yaml'
+  previousSeasonHeadToHeadGames:
+    type: array
+    description: Optionale Spiele der Vorsaison zur Ermittlung saisonübergreifender Head-to-Head-Serien.
+    items:
+      $ref: '../../../connectors/interface/v2/schemas/Game.yaml'

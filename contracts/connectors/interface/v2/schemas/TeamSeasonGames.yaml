@@ -1,0 +1,20 @@
+type: object
+description: Enthält alle Spiele eines bestimmten NBA-Teams innerhalb einer angegebenen Saison.
+required:
+  - team
+  - season
+  - games
+properties:
+  team:
+    $ref: '../../../../common/schemas/TeamAbbreviation.yaml'
+  season:
+    type: integer
+    minimum: 1947
+    maximum: 2100
+    description: NBA-Saisonjahr (z. B. 2027 für die Saison 2026/27).
+    example: 2027
+  games:
+    type: array
+    description: Chronologisch sortierte Liste aller Spiele des Teams in dieser Saison.
+    items:
+      $ref: './Game.yaml'

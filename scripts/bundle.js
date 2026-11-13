@@ -47,6 +47,11 @@ const APIs = [
     id: 'nbahon-evaluation-game-winning-chance',
     title: 'GameWinningChance Evaluation API',
     entry: path.join(rootDir, 'contracts', 'evaluations', 'game-winning-chance', 'openapi.yaml')
+  },
+  {
+    id: 'nbahon-evaluation-streak',
+    title: 'Streak Evaluation API',
+    entry: path.join(rootDir, 'contracts', 'evaluations', 'streak', 'openapi.yaml')
   }
 ];
 

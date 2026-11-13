@@ -1,0 +1,19 @@
+type: object
+description: Einzelner ausgelöster Spannungsfaktor innerhalb der Streak-Evaluation.
+required:
+  - type
+  - score
+  - description
+properties:
+  type:
+    $ref: './StreakFactorType.yaml'
+  score:
+    type: integer
+    minimum: 0
+    maximum: 100
+    description: Berechneter Einzel-Score dieses Spannungsfaktors (0 bis 100).
+    example: 67
+  description:
+    type: string
+    description: Menschenlesbare Erklärung des ausgelösten Spannungsfaktors.
+    example: 'Clash of active win streaks: HOU (5W) meets CHI (4W).'

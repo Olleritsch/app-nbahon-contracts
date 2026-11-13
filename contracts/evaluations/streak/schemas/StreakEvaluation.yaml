@@ -1,0 +1,33 @@
+type: object
+description: Ergebnis der StreakEvaluation eines Spiels inklusive Spannungs-Score, Rating, Team-Serien, Head-to-Head-Kontext und ausgelösten Spannungsfaktoren.
+required:
+  - score
+  - rating
+  - awayTeamContext
+  - homeTeamContext
+  - headToHead
+  - factors
+properties:
+  score:
+    type: integer
+    minimum: 0
+    maximum: 100
+    description: Berechneter Spannungswert dieser Evaluation auf einer Skala von 0 bis 100.
+    example: 74
+  rating:
+    $ref: './EvaluationRating.yaml'
+  summary:
+    type: string
+    description: Übergreifende Zusammenfassung der Serien-Konstellation vor Spielbeginn.
+    example: 'Streak evaluation for HOU @ CHI: Rating HIGH (Score: 74/100) — HOU (5W, L10: 8-2) meets CHI (4W, Home: 5W).'
+  awayTeamContext:
+    $ref: './TeamStreakContext.yaml'
+  homeTeamContext:
+    $ref: './TeamStreakContext.yaml'
+  headToHead:
+    $ref: './HeadToHeadContext.yaml'
+  factors:
+    type: array
+    description: Alle ausgelösten Serien- und Form-Spannungsfaktoren (absteigend nach Einzel-Score sortiert).
+    items:
+      $ref: './StreakFactor.yaml'

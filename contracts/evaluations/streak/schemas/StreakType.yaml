@@ -1,0 +1,7 @@
+type: string
+description: Art einer aktuellen Serie eines Teams (Siegesserie, Niederlagenserie oder keine Serie).
+enum:
+  - WIN
+  - LOSS
+  - NONE
+example: WIN

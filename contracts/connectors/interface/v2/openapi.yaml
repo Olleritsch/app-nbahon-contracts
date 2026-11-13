@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: nbahon Connector Interface API Contracts
-  version: 2.2.0
+  version: 2.3.0
   description: Standardisiertes Downstream-Connector-Interface (SPI) des nbahon-Ökosystems. Jeder Konnektor implementiert dieses Interface als Anti-Corruption Layer.
   contact:
     name: Oliver (@Olleritsch)
@@ -28,11 +28,15 @@ paths:
     $ref: './paths/playbyplay.yaml'
   /api/teams:
     $ref: './paths/teams.yaml'
+  /api/teams/{abbreviation}/seasons/{season}/games:
+    $ref: './paths/team-season-games.yaml'
 
 components:
   schemas:
     Gameday:
       $ref: './schemas/Gameday.yaml'
+    TeamSeasonGames:
+      $ref: './schemas/TeamSeasonGames.yaml'
     Game:
       $ref: './schemas/Game.yaml'
     GameStatus:

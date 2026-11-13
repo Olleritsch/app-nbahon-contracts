@@ -1,0 +1,51 @@
+type: object
+description: Berechneter Serien- und Form-Kontext eines Teams unmittelbar vor Spielbeginn (spoilerfrei).
+required:
+  - team
+  - seasonWins
+  - seasonLosses
+  - currentStreakType
+  - currentStreakLength
+  - locationStreakType
+  - locationStreakLength
+  - last10Wins
+  - last10Losses
+properties:
+  team:
+    $ref: '../../../common/schemas/TeamAbbreviation.yaml'
+  seasonWins:
+    type: integer
+    minimum: 0
+    description: Anzahl der Siege in der laufenden Saison vor diesem Spieltag.
+    example: 11
+  seasonLosses:
+    type: integer
+    minimum: 0
+    description: Anzahl der Niederlagen in der laufenden Saison vor diesem Spieltag.
+    example: 4
+  currentStreakType:
+    $ref: './StreakType.yaml'
+  currentStreakLength:
+    type: integer
+    minimum: 0
+    description: Länge der aktuellen Gesamt-Serie in der laufenden Saison.
+    example: 5
+  locationStreakType:
+    $ref: './StreakType.yaml'
+  locationStreakLength:
+    type: integer
+    minimum: 0
+    description: Länge der aktuellen Heim-Serie (für das Heimteam) bzw. Auswärts-Serie (für das Auswärtsteam).
+    example: 6
+  last10Wins:
+    type: integer
+    minimum: 0
+    maximum: 10
+    description: Siege in den letzten bis zu 10 Saisonspielen vor diesem Spieltag.
+    example: 8
+  last10Losses:
+    type: integer
+    minimum: 0
+    maximum: 10
+    description: Niederlagen in den letzten bis zu 10 Saisonspielen vor diesem Spieltag.
+    example: 2

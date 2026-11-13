@@ -3,3 +3,5 @@ description: Ergebnisse der durchgeführten Spielanalysen verschiedener Evaluati
 properties:
   gameWinningChance:
     $ref: './EvaluationSummary.yaml'
+  streak:
+    $ref: './EvaluationSummary.yaml'

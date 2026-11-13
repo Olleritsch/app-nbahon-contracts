@@ -29,6 +29,13 @@ const APIs = [
     description: 'Evaluation-Microservice zur Ermittlung spielentscheidender Situationen (Game Winning Chances) und Berechnung des Spannungs-Ratings.',
     entry: path.join(rootDir, 'contracts', 'evaluations', 'game-winning-chance', 'openapi.yaml'),
     docsSubdir: 'evaluation-game-winning-chance'
+  },
+  {
+    id: 'nbahon-evaluation-streak',
+    name: 'Streak Evaluation API',
+    description: 'Evaluation-Microservice zur Ermittlung von Serien-, Momentum- und Head-to-Head-Spannungsfaktoren vor Spielbeginn.',
+    entry: path.join(rootDir, 'contracts', 'evaluations', 'streak', 'openapi.yaml'),
+    docsSubdir: 'evaluation-streak'
   }
 ];
 

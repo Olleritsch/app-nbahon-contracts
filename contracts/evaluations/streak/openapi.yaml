@@ -1,0 +1,51 @@
+openapi: 3.1.0
+info:
+  title: nbahon Streak Evaluation API Contract
+  version: 1.0.0
+  description: Schnittstellenspezifikation des Evaluation-Microservice zur Ermittlung von Serien-, Momentum- und Head-to-Head-Spannungsfaktoren vor Spielbeginn.
+  contact:
+    name: Oliver (@Olleritsch)
+servers:
+  - url: http://localhost:8080
+    description: Lokale Entwicklung
+
+tags:
+  - name: Evaluations
+    description: Endpunkte zur Auswertung von Spieldaten hinsichtlich spezifischer Spannungsmerkmale
+
+paths:
+  /api/evaluations/streak:
+    $ref: './paths/evaluate.yaml'
+
+components:
+  schemas:
+    StreakEvaluationRequest:
+      $ref: './schemas/StreakEvaluationRequest.yaml'
+    StreakEvaluation:
+      $ref: './schemas/StreakEvaluation.yaml'
+    EvaluationRating:
+      $ref: './schemas/EvaluationRating.yaml'
+    StreakType:
+      $ref: './schemas/StreakType.yaml'
+    StreakFactorType:
+      $ref: './schemas/StreakFactorType.yaml'
+    StreakFactor:
+      $ref: './schemas/StreakFactor.yaml'
+    TeamStreakContext:
+      $ref: './schemas/TeamStreakContext.yaml'
+    HeadToHeadContext:
+      $ref: './schemas/HeadToHeadContext.yaml'
+    Game:
+      $ref: '../../connectors/interface/v2/schemas/Game.yaml'
+    GameStatus:
+      $ref: '../../connectors/interface/v2/schemas/GameStatus.yaml'
+    Team:
+      $ref: '../../connectors/interface/v2/schemas/Team.yaml'
+    TeamAbbreviation:
+      $ref: '../../common/schemas/TeamAbbreviation.yaml'
+    Venue:
+      $ref: '../../connectors/interface/v2/schemas/Venue.yaml'
+    Score:
+      $ref: '../../connectors/interface/v2/schemas/Score.yaml'
+    ProblemDetail:
+      $ref: '../../connectors/interface/v2/schemas/ProblemDetail.yaml'

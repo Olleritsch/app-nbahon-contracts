@@ -1,0 +1,10 @@
+type: string
+enum:
+  - NONE
+  - MILD
+  - FULL
+description: >-
+  Spoiler-Sensitivität einer Erklärung: NONE = reine Pre-Game-Fakten (immer sicher anzeigbar),
+  MILD = abstrakter Spannungs-Teaser ohne Sieger oder Spielstand (z. B. Overtime),
+  FULL = konkrete Spielereignisse, Spieler, Spielstände oder Wurf-Ausgänge.
+example: NONE

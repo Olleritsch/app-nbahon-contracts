@@ -1,0 +1,18 @@
+type: object
+description: Strukturierte textuelle und faktenbasierte Zusammenfassung einer Evaluation inklusive Spoiler-Klassifizierung und einzelner Bewertungsgründe.
+required:
+  - text
+  - spoilerLevel
+  - reasons
+properties:
+  text:
+    type: string
+    description: Prägnante 1-Satz-Headline, die das Hauptergebnis der Evaluation auf den Punkt bringt.
+    example: "BOS @ GSW: 4 decisive crunch-time plays in Q4, led by Jayson Tatum's missed 16ft fadeaway (2.0s left, 87-88)."
+  spoilerLevel:
+    $ref: './SpoilerLevel.yaml'
+  reasons:
+    type: array
+    description: Geordnete Liste aller bewertungsrelevanten Gründe, aus denen sich der Gesamtscore zusammensetzt.
+    items:
+      $ref: './EvaluationReason.yaml'

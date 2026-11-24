@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: nbahon Core BFF API Contracts
-  version: 1.5.0
+  version: 2.0.0
   description: Zentrale Frontend-Facing BFF-Schnittstelle des nbahon-Ökosystems.
   contact:
     name: Oliver (@Olleritsch)
@@ -34,7 +34,13 @@ components:
       $ref: './schemas/GameEvaluations.yaml'
     EvaluationSummary:
       $ref: './schemas/EvaluationSummary.yaml'
+    EvaluationSummaryDetail:
+      $ref: '../../common/schemas/EvaluationSummaryDetail.yaml'
+    EvaluationReason:
+      $ref: '../../common/schemas/EvaluationReason.yaml'
+    SpoilerLevel:
+      $ref: '../../common/schemas/SpoilerLevel.yaml'
     EvaluationRating:
-      $ref: './schemas/EvaluationRating.yaml'
+      $ref: '../../common/schemas/EvaluationRating.yaml'
     ProblemDetail:
       $ref: './schemas/ProblemDetail.yaml'

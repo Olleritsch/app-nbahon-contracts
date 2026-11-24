@@ -1,0 +1,33 @@
+type: object
+description: Einzelner strukturierter Bewertungsfaktor, der nachvollziehbar zum Gesamtscore einer Evaluation beiträgt.
+required:
+  - type
+  - title
+  - description
+  - scoreImpact
+  - spoilerLevel
+properties:
+  type:
+    type: string
+    description: Maschinenlesbarer Faktor-Schlüssel in UPPER_SNAKE_CASE (offen für alle aktuellen und künftigen Evaluatoren).
+    example: PEAK_DECISIVE_PLAY
+  title:
+    type: string
+    description: Kurzer, UI-tauglicher Titel oder Chip-Label des Bewertungsfaktors.
+    example: Peak Crunch-Time Play
+  description:
+    type: string
+    description: Menschenlesbare, faktenbasierte Begründung dieses Bewertungsfaktors.
+    example: 'Q4 (2.0s left, 87-88): Jayson Tatum (BOS) missed 16ft fadeaway long two (LOSE_OR_WIN).'
+  scoreImpact:
+    type: integer
+    minimum: -100
+    maximum: 100
+    description: Konkreter Punktebeitrag dieses Faktors zum Gesamtscore (die Summe aller Gründe ergibt den Gesamtscore).
+    example: 37
+  spoilerLevel:
+    $ref: './SpoilerLevel.yaml'
+  attributes:
+    type: object
+    additionalProperties: true
+    description: Optionale strukturierte Schlüssel-Wert-Metadaten (z. B. player, team, clock, rawPlayScore) für Debugging, Formel-Tuning und künftige Client-Lokalisierung.

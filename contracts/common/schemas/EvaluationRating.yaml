@@ -1,0 +1,9 @@
+type: string
+enum:
+  - NONE
+  - LOW
+  - MEDIUM
+  - HIGH
+  - LEGENDARY
+description: Kategorisierte Spannungsstufe auf Basis des numerischen Scores (0 bis 100).
+example: HIGH

@@ -1,0 +1,17 @@
+type: object
+description: Einheitliche Zusammenfassung eines Evaluation-Ergebnisses mit Score, Rating und strukturierter Erklärung inklusive Spoiler-Stufe und einzelnen Bewertungsgründen.
+required:
+  - score
+  - rating
+  - summary
+properties:
+  score:
+    type: integer
+    minimum: 0
+    maximum: 100
+    description: Berechneter Spannungswert dieser Evaluation auf einer Skala von 0 bis 100.
+    example: 53
+  rating:
+    $ref: '../../../common/schemas/EvaluationRating.yaml'
+  summary:
+    $ref: '../../../common/schemas/EvaluationSummaryDetail.yaml'

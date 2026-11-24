@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: nbahon GameWinningChance Evaluation API Contract
-  version: 1.1.0
+  version: 2.0.0
   description: Schnittstellenspezifikation des Evaluation-Microservice zur Ermittlung spielentscheidender Situationen (Game Winning Chances) und Berechnung des Spannungs-Ratings.
   contact:
     name: Oliver (@Olleritsch)
@@ -24,7 +24,13 @@ components:
     GameWinningChanceEvaluation:
       $ref: './schemas/GameWinningChanceEvaluation.yaml'
     EvaluationRating:
-      $ref: './schemas/EvaluationRating.yaml'
+      $ref: '../../common/schemas/EvaluationRating.yaml'
+    EvaluationSummaryDetail:
+      $ref: '../../common/schemas/EvaluationSummaryDetail.yaml'
+    EvaluationReason:
+      $ref: '../../common/schemas/EvaluationReason.yaml'
+    SpoilerLevel:
+      $ref: '../../common/schemas/SpoilerLevel.yaml'
     GameWinningChance:
       $ref: './schemas/GameWinningChance.yaml'
     GameWinningChancePlay:

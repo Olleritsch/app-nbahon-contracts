@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: nbahon Streak Evaluation API Contract
-  version: 1.0.0
+  version: 2.0.0
   description: Schnittstellenspezifikation des Evaluation-Microservice zur Ermittlung von Serien-, Momentum- und Head-to-Head-Spannungsfaktoren vor Spielbeginn.
   contact:
     name: Oliver (@Olleritsch)
@@ -24,13 +24,15 @@ components:
     StreakEvaluation:
       $ref: './schemas/StreakEvaluation.yaml'
     EvaluationRating:
-      $ref: './schemas/EvaluationRating.yaml'
+      $ref: '../../common/schemas/EvaluationRating.yaml'
+    EvaluationSummaryDetail:
+      $ref: '../../common/schemas/EvaluationSummaryDetail.yaml'
+    EvaluationReason:
+      $ref: '../../common/schemas/EvaluationReason.yaml'
+    SpoilerLevel:
+      $ref: '../../common/schemas/SpoilerLevel.yaml'
     StreakType:
       $ref: './schemas/StreakType.yaml'
-    StreakFactorType:
-      $ref: './schemas/StreakFactorType.yaml'
-    StreakFactor:
-      $ref: './schemas/StreakFactor.yaml'
     TeamStreakContext:
       $ref: './schemas/TeamStreakContext.yaml'
     HeadToHeadContext:

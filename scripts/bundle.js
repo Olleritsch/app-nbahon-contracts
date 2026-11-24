@@ -41,7 +41,7 @@ const APIs = [
   {
     id: 'nbahon-core',
     title: 'Core BFF API',
-    entry: path.join(rootDir, 'contracts', 'core', 'v1', 'openapi.yaml')
+    entry: path.join(rootDir, 'contracts', 'core', 'v2', 'openapi.yaml')
   },
   {
     id: 'nbahon-evaluation-game-winning-chance',

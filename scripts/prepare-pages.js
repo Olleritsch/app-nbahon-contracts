@@ -13,7 +13,7 @@ const APIs = [
     id: 'nbahon-core',
     name: 'Core Orchestrator & BFF API',
     description: 'Upstream Frontend-Facing Schnittstelle für Spieltage, Matchup-Details und aggregierte Analysen.',
-    entry: path.join(rootDir, 'contracts', 'core', 'v1', 'openapi.yaml'),
+    entry: path.join(rootDir, 'contracts', 'core', 'v2', 'openapi.yaml'),
     docsSubdir: 'core'
   },
   {

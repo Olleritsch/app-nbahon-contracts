@@ -1,8 +1,9 @@
 type: object
-description: Ergebnis der GameWinningChanceEvaluation eines Spiels inklusive Spannungs-Score, Rating und erkannten spielentscheidenden Phasen.
+description: Ergebnis der GameWinningChanceEvaluation eines Spiels inklusive Spannungs-Score, Rating, strukturierter Zusammenfassung und erkannten spielentscheidenden Phasen.
 required:
   - score
   - rating
+  - summary
   - gameWinningChances
 properties:
   score:
@@ -10,13 +11,11 @@ properties:
     minimum: 0
     maximum: 100
     description: Berechneter Spannungswert dieser Evaluation auf einer Skala von 0 bis 100.
-    example: 88
+    example: 46
   rating:
-    $ref: './EvaluationRating.yaml'
+    $ref: '../../../common/schemas/EvaluationRating.yaml'
   summary:
-    type: string
-    description: Übergreifende Zusammenfassung der Evaluation auf Spielebene.
-    example: "High-drama finish featuring two game-decisive plays in the final 5 seconds of regulation."
+    $ref: '../../../common/schemas/EvaluationSummaryDetail.yaml'
   gameWinningChances:
     type: array
     description: Alle ermittelten spielentscheidenden Phasen des Spiels (chronologisch nach Periode).

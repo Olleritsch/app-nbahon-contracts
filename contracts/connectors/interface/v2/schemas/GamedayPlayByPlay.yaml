@@ -1,0 +1,16 @@
+type: object
+description: Play-by-Play-Ereignisdaten aller verfügbaren Partien eines NBA-Spieltags, indiziert nach normalisiertem Matchup-Kürzel (AWAY@HOME).
+required:
+  - date
+  - games
+properties:
+  date:
+    type: string
+    format: date
+    description: Kalendertag des Spieltags im Format YYYY-MM-DD.
+    example: "2026-11-25"
+  games:
+    type: object
+    description: Map von normalisiertem Matchup-Kürzel (AWAY@HOME, z.B. MIN@OKC) auf die chronologischen Play-by-Play-Daten der Partie.
+    additionalProperties:
+      $ref: './PlayByPlay.yaml'

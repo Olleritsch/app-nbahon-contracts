@@ -1,0 +1,34 @@
+get:
+  summary: Play-by-Play-Daten für alle Partien eines Spieltags abrufen
+  description: Liefert chronologische Play-by-Play-Ereignisdaten aller verfügbaren Partien eines NBA-Spieltags als Batch-Map (AWAY@HOME -> PlayByPlay). Bei Spieltagen ohne verfügbare Play-by-Play-Daten wird eine leere Map zurückgegeben.
+  operationId: getGamedayPlayByPlay
+  tags:
+    - Gamedays
+  parameters:
+    - name: date
+      in: path
+      required: true
+      description: Kalendertag des Spieltags im Format YYYY-MM-DD.
+      schema:
+        type: string
+        format: date
+        example: "2026-11-25"
+  responses:
+    '200':
+      description: Erfolgreiche Rückgabe der Play-by-Play-Daten des Spieltags.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/GamedayPlayByPlay.yaml'
+    '400':
+      description: Ungültiges Datumsformat (ProblemDetail RFC 9457).
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../schemas/ProblemDetail.yaml'
+    '500':
+      description: Unerwarteter interner Serverfehler (ProblemDetail RFC 9457).
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../schemas/ProblemDetail.yaml'
